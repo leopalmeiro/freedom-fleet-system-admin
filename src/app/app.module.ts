@@ -9,13 +9,15 @@ import { MaterialModule } from './modules/material/material.module';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { TopMenuComponent } from './components/top-menu/top-menu.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MainContentComponent } from './components/main-content/main-content.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SideMenuComponent,
-    TopMenuComponent
+    TopMenuComponent,
+    MainContentComponent
   ],
   imports: [
     BrowserModule,
