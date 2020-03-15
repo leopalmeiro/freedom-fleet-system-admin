@@ -1,0 +1,16 @@
+
+.container{
+  display: flex;
+  flex-flow: row wrap;
+}
+.container > * {
+  padding: 10px;
+  flex: 1 100%;
+  margin: 10px;
+}
+.top-menu{
+  height: 5vh;
+}
+.side-menu{
+  height: 90vh;
+}
