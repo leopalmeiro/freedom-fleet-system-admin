@@ -1,0 +1,19 @@
+<form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" >
+  <div fxLayout="column">
+  <mat-form-field >
+    <mat-label>Vehicle</mat-label>
+    <input matInput id="vehicleName" formControlName="vehicleName" placeholder="Type Your Vehicle type">
+    <mat-error *ngIf="vehicleName.invalid">
+      Vehicle is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field >
+    <mat-label>Vehicle Model</mat-label>
+    <input matInput id="vehicleModel" formControlName="vehicleModel" placeholder="Type Your Vehicle type">
+    <mat-error *ngIf="vehicleModel.invalid">
+      Vehicle Model is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+</div>
+</form>
