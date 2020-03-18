@@ -1,19 +1,55 @@
-<form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" >
-  <div fxLayout="column">
-  <mat-form-field >
-    <mat-label>Vehicle</mat-label>
-    <input matInput id="vehicleName" formControlName="vehicleName" placeholder="Type Your Vehicle type">
-    <mat-error *ngIf="vehicleName.invalid">
-      Vehicle is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" >
 
-  <mat-form-field >
-    <mat-label>Vehicle Model</mat-label>
-    <input matInput id="vehicleModel" formControlName="vehicleModel" placeholder="Type Your Vehicle type">
-    <mat-error *ngIf="vehicleModel.invalid">
-      Vehicle Model is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-</div>
-</form>
+<div class="form-item">
+    <mat-form-field >
+      <mat-label>Vehicle Type</mat-label>
+      <input matInput id="vehicleName" formControlName="vehicleName" placeholder="Type Your Vehicle type">
+      <mat-error *ngIf="vehicleName.invalid">
+        Vehicle is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-item">
+    <mat-form-field>
+      <mat-label>Vehicle Model</mat-label>
+      <input matInput id="vehicleModel" formControlName="vehicleModel" placeholder="Type Your Vehicle Model">
+      <mat-error *ngIf="vehicleModel.invalid">
+        Vehicle Model is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-item">
+    <mat-form-field>
+      <mat-label>Plate</mat-label>
+      <input matInput id="vehiclePlate" formControlName="vehiclePlate" placeholder="Type Your Plate">
+      <mat-error *ngIf="vehiclePlate.invalid">
+        Vehicle Plate is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-item">
+    <mat-form-field>
+      <mat-label>Year</mat-label>
+      <input matInput id="vehicleYear" formControlName="vehicleYear" placeholder="Type Your Vehicle Year">
+      <mat-error *ngIf="vehicleYear.invalid">
+        Vehicle Year is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-item">
+    <mat-form-field>
+      <mat-label>Color</mat-label>
+      <input matInput type="color" id="vehicleColor" formControlName="vehicleColor" placeholder="Type Your Vehicle Color">
+      <mat-error *ngIf="vehicleColor.invalid">
+        Vehicle Color is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-item">
+    <button mat-raised-button color="primary" >Action</button>
+  </div>
+
+  <qrcode [qrdata]="qrdata" [size]="256" [level]="'M'"></qrcode>
+
+  </form>

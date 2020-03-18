@@ -7,6 +7,7 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './../modules/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -18,8 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     SharedModule,
     MaterialModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+QRCodeModule
   ]
 })
 export class ComponentsModule { }

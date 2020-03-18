@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './components/shared/shared.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     FormsModule,
     ComponentsModule,
     SharedModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

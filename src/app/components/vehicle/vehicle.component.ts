@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class VehicleComponent implements OnInit{
 
   vehicleForm: FormGroup;
+  public qrdata: string = null;
 
 
 
@@ -19,7 +20,7 @@ export class VehicleComponent implements OnInit{
     this.vehicleForm = this.fb.group({
       vehicleName: ['', Validators.required],
       vehicleModel: ['', Validators.required],
-      vehiclePlaca: ['', Validators.required],
+      vehiclePlate: ['', Validators.required],
       vehicleYear: ['', Validators.required],
       vehicleColor: ['', Validators.required],
     });
@@ -32,8 +33,8 @@ get vehicleName(){
 get vehicleModel(){
   return this.vehicleForm.get('vehicleModel');
 }
-get vehiclePlaca(){
-  return this.vehicleForm.get('vehiclePlaca');
+get vehiclePlate(){
+  return this.vehicleForm.get('vehiclePlate');
 }
 get vehicleYear(){
   return this.vehicleForm.get('vehicleYear');
@@ -43,7 +44,8 @@ get vehicleColor(){
 }
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {     this.qrdata = 'Initial QR code data string';
+}
 
 onSubmit() {
     // TODO: Use EventEmitter with form value
