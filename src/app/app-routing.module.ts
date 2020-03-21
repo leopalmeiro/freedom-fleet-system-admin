@@ -1,3 +1,4 @@
+import { NewVehicleComponent } from './components/vehicle/new-vehicle/new-vehicle.component';
 import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -14,8 +15,12 @@ const routes: Routes = [
       component: DashboardComponent,
     },
     {
-      path: 'vehicle',
+      path: 'vehicles',
       component: VehicleComponent,
+    },
+        {
+      path: 'vehicles/new',
+      component: NewVehicleComponent,
     }
     ]
 

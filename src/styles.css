@@ -13,3 +13,43 @@ body { margin: 10px; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: flex;
   margin: 10px;
 }
+.container-main {
+  margin: 10px;
+}
+.box-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 10px;
+}
+.box-item {
+  flex-grow: 1;
+}
+.items-container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  margin: 10px;
+  min-height: 95%;
+}
+.items-container > * {
+  margin: 10px;
+}
+.items-container > *:last-child {
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+mat-form-field {
+  width: 90%;
+}
+mat-card-content {
+  margin-top: 10px;
+}
+
+mat-card-title-group {
+  border-bottom: 0.5px solid #bbb;
+}
+mat-card-actions {
+  margin-left: 2px;
+}
+

@@ -1,0 +1,72 @@
+<div class="container-main">
+  <mat-card>
+    <mat-card-title>Vehicles</mat-card-title>
+  </mat-card>
+
+</div>
+<div class="container-main">
+
+  <div class="container-box">
+    <div class="item">
+      <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+
+        <mat-card>
+          <mat-card-title-group>
+            <mat-card-title>Create a New Vehicle</mat-card-title>
+          </mat-card-title-group>
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Vehicle Type</mat-label>
+              <input matInput id="vehicleName" formControlName="vehicleName" placeholder="Type Your Vehicle type">
+              <mat-error *ngIf="vehicleName.invalid">
+                Vehicle is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Vehicle Model</mat-label>
+              <input matInput id="vehicleModel" formControlName="vehicleModel" placeholder="Type Your Vehicle Model">
+              <mat-error *ngIf="vehicleModel.invalid">
+                Vehicle Model is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Plate</mat-label>
+              <input matInput id="vehiclePlate" formControlName="vehiclePlate" placeholder="Type Your Plate">
+              <mat-error *ngIf="vehiclePlate.invalid">
+                Vehicle Plate is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Year</mat-label>
+              <input matInput id="vehicleYear" formControlName="vehicleYear" placeholder="Type Your Vehicle Year">
+              <mat-error *ngIf="vehicleYear.invalid">
+                Vehicle Year is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </mat-card-content>
+          <mat-card-actions align="start">
+            <button mat-raised-button color="primary">Save</button>
+
+          </mat-card-actions>
+
+        </mat-card>
+      </form>
+    </div>
+
+    <div class="item">
+      <mat-card>
+        <mat-card-title-group>
+          <mat-card-title>Vehicle QRcode</mat-card-title>
+        </mat-card-title-group>
+
+        <mat-card-content>
+          <qrcode [qrdata]="qrdata" [size]="256" [level]="'M'"></qrcode>
+        </mat-card-content>
+        <mat-card-actions align="start">
+          <button mat-raised-button color="primary">Print</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
