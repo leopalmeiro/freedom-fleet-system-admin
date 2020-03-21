@@ -4,6 +4,17 @@
   </mat-card>
 
 </div>
+<div class="container-main " id="error">
+  <mat-card class="error-message">
+    <mat-card-title>Error</mat-card-title>
+  </mat-card>
+</div>
+<div class="container-main " id="error">
+  <mat-card class="success-message">
+    <mat-card-title>Error</mat-card-title>
+  </mat-card>
+</div>
+
 <div class="container-main">
 
   <div class="container-box">
@@ -46,7 +57,13 @@
 
           </mat-card-content>
           <mat-card-actions align="start">
-            <button mat-raised-button color="primary">Save</button>
+            <button mat-raised-button color="primary">
+              <mat-icon>save</mat-icon><span class="span-btn-with-icon">Save</span>
+            </button>
+            <button mat-raised-button color="primary" routerLink="/vehicles">
+              <mat-icon>keyboard_arrow_left</mat-icon><span class="span-btn-with-icon">Back</span>
+
+              </button>
 
           </mat-card-actions>
 
@@ -64,7 +81,10 @@
           <qrcode [qrdata]="qrdata" [size]="256" [level]="'M'"></qrcode>
         </mat-card-content>
         <mat-card-actions align="start">
-          <button mat-raised-button color="primary">Print</button>
+          <button mat-raised-button color="primary">
+            <mat-icon>print</mat-icon><span class="span-btn-with-icon">Print</span>
+
+            </button>
         </mat-card-actions>
       </mat-card>
     </div>
