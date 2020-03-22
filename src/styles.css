@@ -69,11 +69,6 @@ mat-card-actions {
   background-color: #27ae5f85;
 }
 
-
-table {
-  width: 100%;
-}
-
 th.mat-sort-header-sorted {
   color: black;
 }
@@ -105,6 +100,6 @@ th.mat-sort-header-sorted {
   background-color:#bdc3c773;
 }
 .icon-hover:hover{
-  font-size: 35px;
+  font-size: 30px;
 
 }

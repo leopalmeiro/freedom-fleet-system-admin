@@ -1,0 +1,11 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<mat-dialog-content>
+  Are you sure you want remove? Id: {{data.id}}
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button matDialogClose>Close dialog</button>
+    <button mat-button [mat-dialog-close]=data.id>Ok</button>
+
+</mat-dialog-actions>

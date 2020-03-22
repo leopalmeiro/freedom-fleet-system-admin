@@ -1,3 +1,6 @@
+import { ConfirmationModalComponent } from './../shared/confirmation-modal/confirmation-modal.component';
+import { ConfirmationMessage } from './../../classes/confirmation-message';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { MatTableDataSource } from "@angular/material/table";
@@ -46,7 +49,21 @@ export class VehicleComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
 
   onSubmit() {}
+
+
+  openDialog(item): void {
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      data: {title: 'Remove Vehicle', id: item.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+
+    });
+  }
+
 }
