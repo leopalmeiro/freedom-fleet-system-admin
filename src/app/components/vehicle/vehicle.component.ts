@@ -1,10 +1,10 @@
-import { ConfirmationModalComponent } from './../shared/confirmation-modal/confirmation-modal.component';
-import { ConfirmationMessage } from './../../classes/confirmation-message';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from "@angular/core";
-
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
+
+import { ConfirmationModalComponent } from './../../shared/components/confirmation-modal/confirmation-modal.component';
+import { ConfirmationMessage } from './../../shared/models/confirmation-message';
 
 export interface Vehicle {
   id: number;

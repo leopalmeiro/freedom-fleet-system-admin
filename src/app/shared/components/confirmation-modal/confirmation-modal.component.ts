@@ -1,4 +1,4 @@
-import { ConfirmationMessage } from './../../../classes/confirmation-message';
+import { ConfirmationMessage } from '../../models/confirmation-message';
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 

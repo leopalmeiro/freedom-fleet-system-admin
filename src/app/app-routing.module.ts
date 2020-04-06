@@ -2,7 +2,7 @@ import { NewVehicleComponent } from "./components/vehicle/new-vehicle/new-vehicl
 import { VehicleComponent } from "./components/vehicle/vehicle.component";
 import { NgModule, Component } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AdminMainComponent } from "./components/shared/admin-main/admin-main.component";
+import { AdminMainComponent } from './shared/components/admin-main/admin-main.component';
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 
 const routes: Routes = [
