@@ -7,6 +7,7 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { FooterComponent } from './footer/footer.component';
+import { ErrorHandlerComponent } from './error-handler/error-handler.component';
 
 
 @NgModule({
@@ -15,7 +16,16 @@ import { FooterComponent } from './footer/footer.component';
     ConfirmationModalComponent,
     TopMenuComponent,
     SideMenuComponent,
-    FooterComponent
+    FooterComponent,
+    ErrorHandlerComponent
+  ],
+  exports: [
+    AdminMainComponent,
+    ConfirmationModalComponent,
+    TopMenuComponent,
+    SideMenuComponent,
+    FooterComponent,
+    ErrorHandlerComponent
   ],
   imports: [
     CommonModule,

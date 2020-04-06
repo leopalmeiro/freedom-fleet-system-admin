@@ -1,3 +1,6 @@
+import { CoreModule } from './core/core.module';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +12,8 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
 import { SharedComponentsModule } from './shared/components/shared-components.module';
-
+import { ErroHandlerService } from './core/services/erro-handler.service';
+import { TestservService } from './core/services/testserv.service';
 
 @NgModule({
   declarations: [
@@ -25,9 +29,10 @@ import { SharedComponentsModule } from './shared/components/shared-components.mo
     QRCodeModule,
     ComponentsModule,
     SharedModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    CoreModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent ]
 })
 export class AppModule { }

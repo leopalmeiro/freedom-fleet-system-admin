@@ -8,13 +8,16 @@ import { TestservService } from './../../core/services/testserv.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  //msg : ConfirmationMessage;
 
-  //constructor(private service : TestservService) { }
-  constructor() { }
+  constructor(private service : TestservService) { }
+  //constructor() { }
   ngOnInit(): void {
-    //this.msg = this.service.getUsers();
 
+    this.service.getUsers().subscribe(
+      data => {
+        console.log(data);
+      }
+    );
   }
 
 }

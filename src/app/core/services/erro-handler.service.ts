@@ -5,10 +5,15 @@ import { Subject, Observable } from "rxjs";
   providedIn: 'root'
 })
 export class ErroHandlerService {
-  private _subject = new Subject<>
+  private erroStr : String;
   constructor() { }
 
-  erro(title: string, message: string){
+  addError(erro : String ){
+    this.erroStr = erro;
+  };
 
-  }
+  getErrors(): Observable<any>{
+     const erroObservable = new Observable(observer => observer.next(this.erroStr));
+     return erroObservable;
+  };
 }
