@@ -1,6 +1,3 @@
-import { CoreModule } from './core/core.module';
-
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { SharedComponentsModule } from './shared/components/shared-components.module';
 import { ErroHandlerService } from './core/services/erro-handler.service';
 import { TestservService } from './core/services/testserv.service';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [

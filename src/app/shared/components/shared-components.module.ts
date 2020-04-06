@@ -8,7 +8,8 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { ErrorHandlerComponent } from './error-handler/error-handler.component';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { ErrorHandlerComponent } from './error-handler/error-handler.component';
     TopMenuComponent,
     SideMenuComponent,
     FooterComponent,
-    ErrorHandlerComponent
+    ErrorHandlerComponent,
+    BrowserAnimationsModule,
+    BrowserModule
   ],
   imports: [
     CommonModule,
