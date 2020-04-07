@@ -2,8 +2,8 @@
   <div *ngIf="hasError" class="container-main" id="error">
     <mat-card class="error-message">
       <mat-card-title>
-        <p *ngIf="error.codeError"> Code erro: {{error.codeError}}</p>
-        <p *ngIf="error.error">Error Message: {{error.error}}</p>
+        <div *ngIf="error.codeError"> Code erro: {{error.codeError}}</div>
+        <div *ngIf="error.error">Error Message: {{error.error}}</div>
       </mat-card-title>
     </mat-card>
   </div>
