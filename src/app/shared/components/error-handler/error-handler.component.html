@@ -1,11 +1,15 @@
-
-<div @fade *ngIf="hasError" class="container-main" id="error">
-  <mat-card class="error-message">
-    <mat-card-title>Error</mat-card-title>
-  </mat-card>
-</div>
-<div *ngIf="!hasError" class="container-main" id="error">
-  <mat-card class="success-message">
-    <mat-card-title>Error</mat-card-title>
-  </mat-card>
+<div *ngIf="show" @faded>
+  <div *ngIf="hasError" class="container-main" id="error">
+    <mat-card class="error-message">
+      <mat-card-title>
+        <p *ngIf="error.codeError"> Code erro: {{error.codeError}}</p>
+        <p *ngIf="error.error">Error Message: {{error.error}}</p>
+      </mat-card-title>
+    </mat-card>
+  </div>
+  <div *ngIf="!hasError" class="container-main" id="error">
+    <mat-card class="success-message">
+      <mat-card-title>Success</mat-card-title>
+    </mat-card>
+  </div>
 </div>

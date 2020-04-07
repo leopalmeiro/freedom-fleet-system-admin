@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { Subject, Observable } from "rxjs";
+import { ErroHandlerMessage } from "./../../shared/models/erro-handler-message";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ErroHandlerService {
-  private erroStr : String;
-  constructor() { }
+  private subject = new Subject<any>();
+  constructor() {}
 
-  addError(erro : String ){
-    this.erroStr = erro;
-  };
+  addError(error: ErroHandlerMessage) {
+    this.subject.next(error);
+  }
 
-  getErrors(): Observable<any>{
-     const erroObservable = new Observable(observer => observer.next(this.erroStr));
-     return erroObservable;
-  };
+  getErrors(): Observable<any> {
+    return this.subject.asObservable();
+  }
 }
