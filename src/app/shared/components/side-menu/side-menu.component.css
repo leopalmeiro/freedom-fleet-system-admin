@@ -1,24 +1,23 @@
-
-mat-drawer-container{
+mat-sidenav-container {
   height: 88vh;
 }
-mat-action-list{
+mat-action-list {
   width: 200px;
   margin: 20px;
 }
 
-mat-list-item:hover{
-  opacity: .2;
-  background-color:#bdc3c7 !important;
+mat-list-item:hover {
+  opacity: 0.2;
+  background-color: #bdc3c7 !important;
 }
-span{
+span {
   padding-left: 20px;
 }
-.side-menu{
+.side-menu {
   background-color: #f3f3f3;
 }
 
-mat-drawer-content {
+mat-sidenav-content {
   padding: 12px;
   display: flex;
   flex-direction: column;

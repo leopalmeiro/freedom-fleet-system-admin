@@ -1,19 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TestservService } from './testserv.service';
-import { ErroHandlerService } from './erro-handler.service';
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { TestservService } from "./testserv.service";
+import { ErroHandlerService } from "./erro-handler.service";
+import { SidemenuService } from "./sidemenu/sidemenu.service";
 
 @NgModule({
-  declarations: [
-
-  ],
-  imports: [
-    CommonModule
-  ],
-  providers: [
-    ErroHandlerService,
-    TestservService
-  ]
+  declarations: [],
+  imports: [CommonModule],
+  providers: [ErroHandlerService, TestservService, SidemenuService],
 })
-export class ServicesModule { }
+export class ServicesModule {}
