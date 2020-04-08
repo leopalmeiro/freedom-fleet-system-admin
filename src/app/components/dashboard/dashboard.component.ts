@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfirmationMessage } from './../../shared/models/confirmation-message';
-import { TestservService } from './../../core/services/testserv.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ConfirmationMessage } from "./../../shared/models/confirmation-message";
+import { TestservService } from "./../../core/services/testserv.service";
+import { SubSink } from "subsink";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.css"],
 })
-export class DashboardComponent implements OnInit {
-
-  constructor(private service : TestservService) { }
+export class DashboardComponent implements OnInit, OnDestroy {
+  private subs = new SubSink();
+  constructor(private service: TestservService) {}
   //constructor() { }
   ngOnInit(): void {
-
-    this.service.getUsers().subscribe(
-      data => {
-        console.log(data);
-      }
-    );
+    this.subs.sink = this.service.getUsers().subscribe((data) => {
+      console.log(data);
+    });
   }
-
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 }

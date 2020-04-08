@@ -9,7 +9,7 @@
 <div class="container-main">
 
   <div class="container-box">
-    <div class="item">
+    <div [ngClass]="{'item-mobile': isMobile, 'item' : !isMobile }">
       <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
 
         <mat-card>
@@ -61,15 +61,18 @@
         </mat-card>
       </form>
     </div>
+    <div *ngIf="isMobile" class="break"></div>
+    <!--break -->
 
-    <div class="item">
+    <div [ngClass]="{'item-mobile': isMobile, 'item' : !isMobile }">
       <mat-card>
         <mat-card-title-group>
           <mat-card-title>Vehicle QRcode</mat-card-title>
         </mat-card-title-group>
 
         <mat-card-content>
-          <qrcode [qrdata]="qrdata" [size]="256" [level]="'M'"></qrcode>
+          <qrcode [qrdata]=" qrdata" [size]="256" [level]="'M'">
+          </qrcode>
         </mat-card-content>
         <mat-card-actions align="start">
           <button mat-raised-button color="primary">

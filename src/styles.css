@@ -1,19 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
-body,html {
+body,
+html {
   margin: 0;
   padding: 0;
 }
 * {
   box-sizing: border-box;
 }
-body { margin: 10px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 10px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-.container{
+.container {
   display: flex;
   margin: 10px;
 }
-
 
 .items-container {
   display: flex;
@@ -23,29 +26,34 @@ body { margin: 10px; font-family: Roboto, "Helvetica Neue", sans-serif; }
   min-height: 95%;
 }
 .item {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
   flex: 1;
   margin: 10px;
 }
-.item:first-child{
-margin-left: 0;
+.item:first-child {
+  margin-left: 0;
 }
-.item:last-child{
+.item:last-child {
   margin-right: 0;
-  }
+}
+.item-mobile {
+  flex: 1;
+  margin: 10px;
+  margin-left: 0;
+  margin-right: 0;
+}
+.break {
+  flex-basis: 100%;
+  width: 0;
+}
 .container-main {
   margin: 10px;
-
 }
 .container-box {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-
+  flex-basis: 100%;
 }
-
 
 mat-form-field {
   width: 100%;
@@ -58,14 +66,14 @@ mat-card-title-group {
   border-bottom: 0.5px solid #bbb;
 }
 mat-card-actions {
-  margin: 0!important;
-  padding: 0!important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.error-message{
+.error-message {
   background-color: #c03a2b85;
 }
-.success-message{
+.success-message {
   background-color: #27ae5f85;
 }
 
@@ -76,30 +84,29 @@ th.mat-sort-header-sorted {
   margin-left: 10px;
 }
 
-.icon-edit{
+.icon-edit {
   color: #2980b9;
 }
-.icon-delete{
+.icon-delete {
   color: #c0392b;
 }
 
 .btn-success {
-  background-color: #27ae60!important;
+  background-color: #27ae60 !important;
 }
-.table-with-scroll{
+.table-with-scroll {
   max-height: 300px;
   overflow: auto;
 }
 
-.box-btn{
+.box-btn {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.mat-row:hover{
-  background-color:#bdc3c773;
+.mat-row:hover {
+  background-color: #bdc3c773;
 }
-.icon-hover:hover{
+.icon-hover:hover {
   font-size: 30px;
-
 }

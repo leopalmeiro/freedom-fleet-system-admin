@@ -4,6 +4,8 @@
   </mat-card>
 
 </div>
+<app-error-handler></app-error-handler>
+
 <div class="container-main">
   <div class="container-box">
     <div class="item">
@@ -21,54 +23,57 @@
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Lambo">
           </mat-form-field>
-          <div class="mat-elevation-z8 table-with-scroll">
-            <table mat-table [dataSource]="dataSource" matSort>
+          <div class="table-with-scroll">
+            <mat-table class="mat-elevation-z8" [dataSource]="dataSource" matSort>
 
               <!-- Position Column -->
               <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header width="5%"> Id. </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Id. </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
               </ng-container>
 
               <!-- Name Column -->
               <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
               </ng-container>
 
-              <!-- Weight Column -->
+              <!-- Model Column -->
               <ng-container matColumnDef="model">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
-                <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Model </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.model}} </mat-cell>
               </ng-container>
 
-              <!-- Symbol Column -->
+              <!-- Year Column -->
               <ng-container matColumnDef="year">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header width="5%"> Year </th>
-                <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Year </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.year}} </mat-cell>
               </ng-container>
-              <!-- Symbol Column -->
+              <!-- Plate Column -->
               <ng-container matColumnDef="plate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Plate </th>
-                <td mat-cell *matCellDef="let element"> {{element.plate}} </td>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Plate </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.plate}} </mat-cell>
               </ng-container>
+
+              <!-- Actions Column -->
               <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header width="10%"> Actions </th>
-                <td mat-cell *matCellDef="let element">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let element">
                   <div>
-                    <button mat-icon-button class="icon-edit" [routerLink]="['/vehicles/edit', element.id ]">
+                    <button *ngIf="!isMobile" mat-icon-button class="icon-edit"
+                      [routerLink]="['/vehicles/edit', element.id ]">
                       <mat-icon class="icon-hover">create</mat-icon>
                     </button>
                     <button mat-icon-button class="icon-delete" (click)="openDialog(element)">
                       <mat-icon class="icon-hover">remove_circle</mat-icon>
                     </button>
                   </div>
-                </td>
+                </mat-cell>
               </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="isMobile ? openEdit(row): null ">
+              </mat-row>
+            </mat-table>
           </div>
           <mat-paginator [length]="220" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">">
           </mat-paginator>

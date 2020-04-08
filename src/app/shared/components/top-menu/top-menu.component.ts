@@ -12,8 +12,6 @@ export class TopMenuComponent implements OnInit {
   ngOnInit(): void {}
 
   toggleSidemenu() {
-    console.log("toggle");
-
     this.sidemenuService.toggle();
   }
 }
