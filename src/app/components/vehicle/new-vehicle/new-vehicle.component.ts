@@ -2,6 +2,8 @@ import { BreakpointService } from "./../../../core/services/layout/breakpoint.se
 import { SubSink } from "subsink";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { VehicleService } from 'src/app/core/services/vehicle/vehicle.service';
+import { Vehicle } from 'src/app/shared/models/vehicle';
 
 @Component({
   selector: "app-new-vehicle",
@@ -16,26 +18,25 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private breakpointService: BreakpointService
+    private breakpointService: BreakpointService,
+    private vehicleService : VehicleService
   ) {
     this.qrdata = "Initial QR code data string";
   }
 
-  get vehicleName() {
-    return this.vehicleForm.get("vehicleName");
+  get name() {
+    return this.vehicleForm.get("name");
   }
-  get vehicleModel() {
-    return this.vehicleForm.get("vehicleModel");
+  get model() {
+    return this.vehicleForm.get("model");
   }
-  get vehiclePlate() {
-    return this.vehicleForm.get("vehiclePlate");
+  get plate() {
+    return this.vehicleForm.get("plate");
   }
-  get vehicleYear() {
-    return this.vehicleForm.get("vehicleYear");
+  get year() {
+    return this.vehicleForm.get("year");
   }
-  get vehicleColor() {
-    return this.vehicleForm.get("vehicleColor");
-  }
+
 
   getScreenSize(): void {
     this.subs.sink = this.breakpointService.screenSizeObserver.subscribe(
@@ -52,17 +53,18 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
     );
   }
   onSubmit(): void {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.vehicleForm.value);
+    const vehicle: Vehicle = this.vehicleForm.value;
+    this.vehicleService.addVehicle(this.vehicleForm.value);
   }
+
   ngOnInit(): void {
     this.vehicleForm = this.fb.group({
-      vehicleName: ["", Validators.required],
-      vehicleModel: ["", Validators.required],
-      vehiclePlate: ["", Validators.required],
-      vehicleYear: ["", Validators.required],
-      vehicleColor: ["", Validators.required],
+      name: ["", Validators.required],
+      model: ["", Validators.required],
+      plate: ["", Validators.required],
+      year: ["", Validators.required],
     });
+
     this.getScreenSize();
   }
   ngOnDestroy(): void {

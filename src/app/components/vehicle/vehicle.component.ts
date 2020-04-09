@@ -8,27 +8,10 @@ import { MatSort } from "@angular/material/sort";
 
 import { ConfirmationModalComponent } from "./../../shared/components/confirmation-modal/confirmation-modal.component";
 import { ConfirmationMessage } from "./../../shared/models/confirmation-message";
+import { Vehicle } from 'src/app/shared/models/vehicle';
+import { VehicleService } from 'src/app/core/services/vehicle/vehicle.service';
 
-export interface Vehicle {
-  id: number;
-  name: String;
-  model: String;
-  year: number;
-  plate: String;
-}
 
-const ELEMENT_DATA: Vehicle[] = [
-  { id: 1, name: "Lambo", model: "aventor", year: 2020, plate: "tes-45200" },
-  { id: 2, name: "Lambo", model: "aventor", year: 2018, plate: "tes-45200" },
-  { id: 3, name: "Lambo", model: "aventor", year: 1255, plate: "tes-45200" },
-  { id: 4, name: "Lambo", model: "aventor", year: 1920, plate: "tes-45200" },
-  { id: 5, name: "Lambo", model: "aventor01", year: 2020, plate: "tes-45200" },
-  { id: 6, name: "Lambo", model: "aventor", year: 2020, plate: "tes-45200" },
-  { id: 7, name: "Lambo", model: "aventor", year: 2018, plate: "tes-45200" },
-  { id: 8, name: "Lambo", model: "aventor", year: 1255, plate: "tes-45200" },
-  { id: 9, name: "Lambo", model: "aventor", year: 1920, plate: "tes-45200" },
-  { id: 10, name: "Lambo", model: "aventor01", year: 2020, plate: "tes-45200" },
-];
 
 @Component({
   selector: "app-vehicle",
@@ -47,7 +30,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
   ];
 
   displayedColumnsMobile: string[] = ["id", "name", "model", "actions"];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
   isMobile: boolean;
   private subs = new SubSink();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -56,16 +39,22 @@ export class VehicleComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private breakpointService: BreakpointService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private vehicleService: VehicleService
   ) {}
 
   ngOnInit(): void {
     this.displayedColumns = this.displayedColumnsAllElements;
     this.dataSource.sort = this.sort;
+    this.getVehicles();
     this.getScreenSize();
-
   }
 
+  getVehicles(): void{
+    this.subs.sink = this.vehicleService.getVehicles().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+    });
+  }
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
@@ -82,6 +71,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       console.log("The dialog was closed");
+      this.vehicleService.removeVehicle(result);
       console.log(result);
     });
   }
@@ -90,6 +80,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
     this.router.navigate(["/vehicles/edit", obj.id]);
   }
+
   getScreenSize(): void {
     this.subs.sink = this.breakpointService.screenSizeObserver.subscribe(
       (data) => {

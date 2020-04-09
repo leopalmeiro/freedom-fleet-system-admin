@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ErrorHandlerComponent } from './error-handler/error-handler.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TopMenuComponent,
     SideMenuComponent,
     FooterComponent,
-    ErrorHandlerComponent
+    ErrorHandlerComponent,
+    ProgressBarComponent
   ],
   exports: [
     AdminMainComponent,
