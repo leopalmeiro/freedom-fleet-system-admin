@@ -54,6 +54,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     this.subs.sink = this.vehicleService.getVehicles().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
     });
+    this.vehicleService.getVehicles();
   }
   ngOnDestroy(): void {
     this.subs.unsubscribe();

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { Vehicle } from 'src/app/shared/models/vehicle';
 import { VEHICLES } from 'src/app/mocks/mocks';
-import { delay } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { ProgressBarService } from '../progress-bar/progress-bar.service';
 
 @Injectable({
@@ -34,15 +34,20 @@ export class VehicleService {
   removeVehicle(vehicleId): void {
     this.getDelay();
     const index = vehicleId - 1;
-    this.v = this.v.splice(index, 1);
+    this.v.splice(index, 1);
+    this.subject.next(this.v);
   }
 
   updateVehicle(vehicle : Vehicle): void{
-    this.getVehicles();
-    const index = VEHICLES.indexOf(vehicle, 0);
+    this.getDelay();
+    const index = this.v.indexOf(this.getVehicleByID(vehicle.id), 0);
     if(index > -1) {
-      VEHICLES[index] = vehicle;
+      this.v[index] = vehicle;
+      this.subject.next(this.v);
     }
+  }
+  getVehicleByID(id) : Vehicle{
+    return this.v.find(veih => veih.id === +id);
   }
 
   getDelay(): void{
