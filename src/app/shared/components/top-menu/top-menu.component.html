@@ -7,9 +7,9 @@
     <span>Freedom Fleet System</span>
     <span class="example-spacer"></span>
 
-    <button class="example-icon" mat-icon-button matBadge="22">
+    <!--  <button class="example-icon" mat-icon-button matBadge="22">
       <mat-icon>email</mat-icon>
-    </button>
+    </button> -->
     <button class="example-icon" mat-icon-button [matMenuTriggerFor]="appMenu">
       <mat-icon>apps</mat-icon>
     </button>
@@ -18,5 +18,7 @@
 <mat-menu #appMenu="matMenu">
   <button mat-menu-item>Settings</button>
   <button mat-menu-item>Help</button>
+  <button mat-menu-item>Logout</button>
+
 </mat-menu>
 <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>

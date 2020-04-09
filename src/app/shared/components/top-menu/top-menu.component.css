@@ -1,12 +1,15 @@
-mat-toolbar{
+mat-toolbar {
   background-color: #27ae5fa9;
-  color: #ecf0f1;
+  color: #fff;
 }
-.icons{
+.icons {
   display: flex;
   flex-direction: row-reverse;
 }
 
 .example-spacer {
   flex: 1 1 auto;
+}
+button:hover {
+  background-color: #ecf0f156;
 }

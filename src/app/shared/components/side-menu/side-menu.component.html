@@ -2,7 +2,7 @@
   <mat-sidenav #sidemenu [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? false: true" class="side-menu">
     <mat-action-list>
       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null" routerLink="/">
-        <mat-icon>home</mat-icon><span>DashBoard</span>
+        <mat-icon>home</mat-icon><span>Dashboard</span>
       </button>
       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null" routerLink="/vehicles">
         <mat-icon>drive_eta</mat-icon><span>Vehicles</span>

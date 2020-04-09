@@ -6,15 +6,14 @@ mat-action-list {
   margin: 20px;
 }
 
-mat-list-item:hover {
-  opacity: 0.2;
-  background-color: #bdc3c7 !important;
+.mat-list-item:hover {
+  background-color: #ecf0f18c !important;
 }
 span {
   padding-left: 20px;
 }
 .side-menu {
-  background-color: #f3f3f3;
+  background-color: #bdc3c70e;
 }
 
 mat-sidenav-content {
