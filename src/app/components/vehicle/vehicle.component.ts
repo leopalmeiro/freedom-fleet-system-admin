@@ -38,7 +38,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private breakpointService: BreakpointService,
-    private route: ActivatedRoute,
     private router: Router,
     private vehicleService: VehicleService
   ) {}
@@ -71,9 +70,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     });
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      console.log("The dialog was closed");
       this.vehicleService.removeVehicle(result);
-      console.log(result);
     });
   }
   openEdit(obj): void {

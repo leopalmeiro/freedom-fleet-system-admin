@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl,NgForm} from "@angular/forms";
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
 import { Vehicle } from "src/app/shared/models/vehicle";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { BreakpointService } from 'src/app/core/services/layout/breakpoint.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -16,10 +16,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 
 export class NewVehicleComponent implements OnInit, OnDestroy {
   vehicleForm: FormGroup;
-  qrdata: string = null;
+  showRQCode: boolean= false;
+  qrdata: string;
   isMobile: boolean = false;
   isEditMode: boolean = false;
-  labelNewEdit;
   private subs = new SubSink();
 
   //matcher=  new MyErrorStateMatcher();
@@ -29,6 +29,8 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
     private breakpointService: BreakpointService,
     private vehicleService: VehicleService,
     private route: ActivatedRoute,
+    private router: Router,
+
   ) {
     this.qrdata = "Initial QR code data string";
   }
@@ -71,8 +73,9 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
       this.vehicleService.updateVehicle(this.vehicleForm.value);
     } else {
       this.vehicleService.addVehicle(this.vehicleForm.value);
-      form.resetForm();
     }
+    this.router.navigate(["/vehicles"]);
+
   }
 
   resetForm(): void {
@@ -88,6 +91,7 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
     const id = +this.route.snapshot.paramMap.get("id");
     if (id > 0) {
       this.isEditMode = true;
+      this.showRQCode = true;
       this.setValues(this.vehicleService.getVehicleByID(id));
     }
     this.getScreenSize();
@@ -104,5 +108,6 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
       plate: vehicle.plate,
       year: vehicle.year,
     });
+    this.qrdata = "96a3be3cf272e017046d1b2674a52bd3";
   }
 }

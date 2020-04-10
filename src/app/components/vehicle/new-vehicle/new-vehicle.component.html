@@ -2,85 +2,110 @@
   <mat-card>
     <mat-card-title>Vehicles</mat-card-title>
   </mat-card>
-
 </div>
 <app-error-handler></app-error-handler>
 
 <div class="container-main">
-
-  <div class="container-box">
-    <div [ngClass]="{'item-mobile': isMobile, 'item' : !isMobile }">
-      <form [formGroup]="vehicleForm" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
-
+  <form
+    [formGroup]="vehicleForm"
+    #myForm="ngForm"
+    (ngSubmit)="onSubmit(myForm)"
+  >
+    <div class="container-box">
+      <div [ngClass]="{ 'item-mobile': isMobile, item: !isMobile }">
         <mat-card>
           <mat-card-title-group>
-              <mat-card-title *ngIf="!isEditMode">Create a New Vehicle</mat-card-title>
-              <mat-card-title *ngIf="isEditMode" >Edit Vehicle id : {{id.value}}</mat-card-title>
+            <mat-card-title *ngIf="!isEditMode"
+              >Create a New Vehicle</mat-card-title
+            >
+            <mat-card-title *ngIf="isEditMode"
+              >Edit Vehicle id : {{ id.value }}</mat-card-title
+            >
           </mat-card-title-group>
           <mat-card-content>
             <mat-form-field appearance="outline">
               <mat-label>Vehicle Type</mat-label>
-              <input matInput id="name" formControlName="name" placeholder="Type Your Vehicle type" >
+              <input
+                matInput
+                id="name"
+                formControlName="name"
+                placeholder="Type Your Vehicle type"
+              />
               <mat-error *ngIf="name.invalid">
                 Vehicle is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Vehicle Model</mat-label>
-              <input matInput id="model" formControlName="model" placeholder="Type Your Vehicle Model">
+              <input
+                matInput
+                id="model"
+                formControlName="model"
+                placeholder="Type Your Vehicle Model"
+              />
               <mat-error *ngIf="model.invalid">
                 Vehicle Model is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Plate</mat-label>
-              <input matInput id="plate" formControlName="plate" placeholder="Type Your Plate">
+              <input
+                matInput
+                id="plate"
+                formControlName="plate"
+                placeholder="Type Your Plate"
+              />
               <mat-error *ngIf="plate.invalid">
                 Vehicle Plate is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Year</mat-label>
-              <input matInput id="year" formControlName="year" placeholder="Type Your Vehicle Year">
+              <input
+                matInput
+                id="year"
+                formControlName="year"
+                placeholder="Type Your Vehicle Year"
+              />
               <mat-error *ngIf="year.invalid">
                 Vehicle Year is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-
           </mat-card-content>
           <mat-card-actions align="start">
-            <button mat-raised-button color="primary" >
-              <mat-icon>save</mat-icon><span class="span-btn-with-icon">Save</span>
+            <button [disabled]="!myForm.valid" mat-raised-button color="primary">
+              <mat-icon>save</mat-icon
+              ><span class="span-btn-with-icon">Save</span>
             </button>
             <button mat-raised-button color="primary" routerLink="/vehicles">
-              <mat-icon>keyboard_arrow_left</mat-icon><span class="span-btn-with-icon">Back</span>
-
+              <mat-icon>keyboard_arrow_left</mat-icon
+              ><span class="span-btn-with-icon">Back</span>
             </button>
-
           </mat-card-actions>
-
         </mat-card>
-      </form>
-    </div>
-    <div *ngIf="isMobile" class="break"></div>
-    <!--break -->
+      </div>
 
-    <div [ngClass]="{'item-mobile': isMobile, 'item' : !isMobile }">
-      <mat-card>
-        <mat-card-title-group>
-          <mat-card-title>Vehicle QRcode</mat-card-title>
-        </mat-card-title-group>
+      <!-- flex break when if mobile -->
+      <div *ngIf="isMobile" class="break"></div>
+      <!--flex break when if mobile -->
 
-        <mat-card-content>
-          <qrcode [qrdata]=" qrdata" [size]="256" [level]="'M'">
-          </qrcode>
-        </mat-card-content>
-        <mat-card-actions align="start">
-          <button mat-raised-button color="primary">
-            <mat-icon>print</mat-icon><span class="span-btn-with-icon">Print</span>
-          </button>
-        </mat-card-actions>
-      </mat-card>
+      <div *ngIf="showRQCode" [ngClass]="{ 'item-mobile': isMobile, item: !isMobile }">
+        <mat-card>
+          <mat-card-title-group>
+            <mat-card-title>Vehicle QRcode</mat-card-title>
+          </mat-card-title-group>
+
+          <mat-card-content >
+            <qrcode [qrdata]="qrdata" [size]="256" [level]="'M'"> </qrcode>
+          </mat-card-content>
+          <mat-card-actions align="start">
+            <button mat-raised-button color="primary">
+              <mat-icon>print</mat-icon
+              ><span class="span-btn-with-icon">Print</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
