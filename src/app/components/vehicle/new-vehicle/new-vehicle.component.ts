@@ -1,32 +1,41 @@
-import { BreakpointService } from "./../../../core/services/layout/breakpoint.service";
 import { SubSink } from "subsink";
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl,NgForm} from "@angular/forms";
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
 import { Vehicle } from "src/app/shared/models/vehicle";
 import { ActivatedRoute } from "@angular/router";
+import { BreakpointService } from 'src/app/core/services/layout/breakpoint.service';
+import { ErrorStateMatcher } from '@angular/material/core';
+
 
 @Component({
   selector: "app-new-vehicle",
   templateUrl: "./new-vehicle.component.html",
   styleUrls: ["./new-vehicle.component.css"],
 })
+
 export class NewVehicleComponent implements OnInit, OnDestroy {
   vehicleForm: FormGroup;
   qrdata: string = null;
   isMobile: boolean = false;
   isEditMode: boolean = false;
+  labelNewEdit;
   private subs = new SubSink();
 
+  //matcher=  new MyErrorStateMatcher();
   constructor(
+
     private fb: FormBuilder,
     private breakpointService: BreakpointService,
     private vehicleService: VehicleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.qrdata = "Initial QR code data string";
   }
 
+  get id() {
+    return this.vehicleForm.get("id");
+  }
   get name() {
     return this.vehicleForm.get("name");
   }
@@ -55,26 +64,31 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
       }
     );
   }
-  onSubmit(): void {
-    const vehicle: Vehicle = this.vehicleForm.value;
-    this.isEditMode ? this.vehicleService.updateVehicle(this.vehicleForm.value) :     this.vehicleService.addVehicle(this.vehicleForm.value);
+  onSubmit(form): void {
 
+    const vehicle: Vehicle = this.vehicleForm.value;
+    if (this.isEditMode) {
+      this.vehicleService.updateVehicle(this.vehicleForm.value);
+    } else {
+      this.vehicleService.addVehicle(this.vehicleForm.value);
+      form.resetForm();
+    }
   }
 
+  resetForm(): void {
+  }
   ngOnInit(): void {
     this.vehicleForm = this.fb.group({
-      id: ["", Validators.required],
-      name: ["", Validators.required],
-      model: ["", Validators.required],
-      plate: ["", Validators.required],
-      year: ["", Validators.required],
+      id: new FormControl(''),
+      name: new FormControl('',[Validators.required]),
+      model: new FormControl('',[Validators.required]),
+      plate: new FormControl('',[Validators.required]),
+      year: new FormControl('',[Validators.required]),
     });
     const id = +this.route.snapshot.paramMap.get("id");
     if (id > 0) {
       this.isEditMode = true;
-
       this.setValues(this.vehicleService.getVehicleByID(id));
-
     }
     this.getScreenSize();
   }
@@ -82,14 +96,13 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  setValues(vehicle: Vehicle): void{
+  setValues(vehicle: Vehicle): void {
     this.vehicleForm.patchValue({
       id: vehicle.id,
       name: vehicle.name,
       model: vehicle.model,
       plate: vehicle.plate,
-      year: vehicle.year
+      year: vehicle.year,
     });
-
   }
 }

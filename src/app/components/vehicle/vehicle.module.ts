@@ -17,6 +17,6 @@ import { SharedComponentsModule } from "./../../shared/components/shared-compone
     ReactiveFormsModule,
     QRCodeModule,
     SharedComponentsModule,
-  ],
+  ]
 })
 export class VehicleModule {}
