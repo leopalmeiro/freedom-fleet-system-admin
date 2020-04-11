@@ -60,6 +60,8 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <div>
+                      <app-btn-print *ngIf="!isMobile" type="icon" [elements]="element"></app-btn-print>
+
                     <button *ngIf="!isMobile" mat-icon-button class="icon-edit"
                       [routerLink]="['/vehicles/edit', element.id ]">
                       <mat-icon class="icon-hover">create</mat-icon>

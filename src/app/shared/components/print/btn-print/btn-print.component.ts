@@ -1,0 +1,74 @@
+
+import { NgModule } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Injector,
+  ApplicationRef,
+  ComponentFactoryResolver,
+  ViewChild,
+  AfterViewInit,
+  ComponentFactory,
+  ComponentRef,
+  ViewContainerRef,
+  ElementRef,
+} from "@angular/core";
+import { PrintLayoutComponent } from '../print-layout/print-layout.component';
+
+@Component({
+  selector: "app-btn-print",
+  templateUrl: "./btn-print.component.html",
+  styleUrls: ["./btn-print.component.css"],
+})
+
+export class BtnPrintComponent implements OnInit, AfterViewInit {
+  @Input() elements: any[];
+  @Input() type: string;
+  miFactory: ComponentFactory<any>;
+  componentRef: ComponentRef<PrintLayoutComponent>; // se declara una variable referencia.
+  @ViewChild('printComponent', { read: ViewContainerRef }) compDynamicContainer: ViewContainerRef;
+
+
+
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    ) { }
+
+
+  ngAfterViewInit(): void {
+
+  }
+
+  ngOnInit(): void {}
+
+  print():void{
+    this.compDynamicContainer.clear();
+    const factory: ComponentFactory<PrintLayoutComponent> = this.resolver.resolveComponentFactory(PrintLayoutComponent);
+    this.componentRef = this.compDynamicContainer.createComponent(factory);
+
+    window.print();
+    //const element = "<div #printComponent></div>";
+    //this.compDynamicContainer.clear();
+    //const factory: ComponentFactory<PrintLayoutComponent> = this.resolver.resolveComponentFactory(PrintLayoutComponent);
+    //this.componentRef = this.compDynamicContainer.createComponent(factory);
+    //console.log(this.componentRef);
+    //const open = this.componentRef.instance.open();
+    //const externalWindow = window.open('', '', 'width=600,height=400,left=200,top=200');
+    //externalWindow.document.write(element);
+    //console.log(this.compDynamicContainer.createEmbeddedView);
+
+    //externalWindow.document.write();
+    //externalWindow.print();
+  }
+
+}
+
+
+@NgModule({
+  imports: [],
+  exports: [],
+  declarations: [BtnPrintComponent],
+  providers: [],
+})
+export class PrintBtnModule { }

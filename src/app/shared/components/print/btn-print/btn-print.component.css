@@ -1,0 +1,17 @@
+.print-elements{
+
+display: none;
+}
+
+@media print {
+  /* invert the display (show/hide) properties of the main */
+  /* aplication component and the printing component       */
+
+   .print-elements{
+    display: block;
+  }
+
+  print-btn {
+    display: none;
+  }
+}

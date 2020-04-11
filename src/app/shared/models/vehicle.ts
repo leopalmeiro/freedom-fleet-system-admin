@@ -4,4 +4,6 @@ export interface Vehicle {
   model: String;
   year: number;
   plate: String;
+  qrdata: String;
+
 }

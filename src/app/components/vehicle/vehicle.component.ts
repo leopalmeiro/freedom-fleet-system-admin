@@ -34,7 +34,8 @@ export class VehicleComponent implements OnInit, OnDestroy {
   isMobile: boolean;
   private subs = new SubSink();
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
+  typePrintButton = 'icon';
+  elements
   constructor(
     public dialog: MatDialog,
     private breakpointService: BreakpointService,

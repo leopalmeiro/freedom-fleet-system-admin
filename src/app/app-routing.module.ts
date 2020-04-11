@@ -4,6 +4,7 @@ import { NgModule, Component } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { AdminMainComponent } from "./shared/components/admin-main/admin-main.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { PrintLayoutComponent } from "./shared/components/print/print-layout/print-layout.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       {
         path: "",
         component: DashboardComponent,
+
       },
       {
         path: "vehicles",

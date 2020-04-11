@@ -17,7 +17,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 export class NewVehicleComponent implements OnInit, OnDestroy {
   vehicleForm: FormGroup;
   showRQCode: boolean= false;
-  qrdata: string;
   isMobile: boolean = false;
   isEditMode: boolean = false;
   private subs = new SubSink();
@@ -32,7 +31,6 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
     private router: Router,
 
   ) {
-    this.qrdata = "Initial QR code data string";
   }
 
   get id() {
@@ -51,7 +49,9 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
   get year() {
     return this.vehicleForm.get("year");
   }
-
+  get qrdata() {
+    return this.vehicleForm.get("qrdata");
+  }
   getScreenSize(): void {
     this.subs.sink = this.breakpointService.screenSizeObserver.subscribe(
       (data) => {
@@ -87,7 +87,9 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
       model: new FormControl('',[Validators.required]),
       plate: new FormControl('',[Validators.required]),
       year: new FormControl('',[Validators.required]),
+      qrdata: new FormControl(''),
     });
+
     const id = +this.route.snapshot.paramMap.get("id");
     if (id > 0) {
       this.isEditMode = true;
@@ -107,7 +109,7 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
       model: vehicle.model,
       plate: vehicle.plate,
       year: vehicle.year,
+      qrdata: "96a3be3cf272e017046d1b2674a52bd3"
     });
-    this.qrdata = "96a3be3cf272e017046d1b2674a52bd3";
   }
 }

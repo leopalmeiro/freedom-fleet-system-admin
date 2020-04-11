@@ -10,6 +10,7 @@ import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
 import { SharedComponentsModule } from './shared/components/shared-components.module';
 import { CoreModule } from './core/core.module';
+import { PrintLayoutComponent } from './shared/components/print/print-layout/print-layout.component';
 
 @NgModule({
   declarations: [

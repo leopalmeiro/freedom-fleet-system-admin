@@ -11,6 +11,8 @@ import { ErrorHandlerComponent } from './error-handler/error-handler.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { BtnPrintComponent } from './print/btn-print/btn-print.component';
+import { PrintLayoutComponent } from './print/print-layout/print-layout.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     SideMenuComponent,
     FooterComponent,
     ErrorHandlerComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    BtnPrintComponent,
+    PrintLayoutComponent
   ],
   exports: [
     AdminMainComponent,
@@ -30,7 +34,9 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     FooterComponent,
     ErrorHandlerComponent,
     BrowserAnimationsModule,
-    BrowserModule
+    BrowserModule,
+    BtnPrintComponent,
+    PrintLayoutComponent
   ],
   imports: [
     CommonModule,

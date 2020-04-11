@@ -1,0 +1,26 @@
+<div class="print-btn">
+<button *ngIf="type === 'icon'" mat-icon-button class="icon-print" (click)=print()>
+    <mat-icon  class="icon-hover">print</mat-icon>
+</button>
+<button *ngIf="type === 'button'" mat-raised-button color="primary" (click)=print()>
+  <mat-icon>print</mat-icon
+  ><span class="span-btn-with-icon">Print</span>
+</button>
+</div>
+<div>
+<div class="print-elements">
+  <h2>N Reparações</h2>
+  <p>91 886 73 76</p>
+  <div class="address">
+    <p>geral@nreparacoes.com</p>
+    <p>Av. Dr. Ribeiro de Magalhães, 1391</p>
+    <p>Centro Comercial 123, Loja BD</p>
+    <p>4610-108 Felgueiras</p>
+  </div>
+
+  <ng-container #printComponent>
+    <ng-content></ng-content>
+  </ng-container>
+
+</div>
+</div>

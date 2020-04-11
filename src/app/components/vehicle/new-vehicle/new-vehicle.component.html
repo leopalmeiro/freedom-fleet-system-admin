@@ -96,13 +96,10 @@
           </mat-card-title-group>
 
           <mat-card-content >
-            <qrcode [qrdata]="qrdata" [size]="256" [level]="'M'"> </qrcode>
+            <qrcode [qrdata]="qrdata.value" [size]="256" [level]="'M'"> </qrcode>
           </mat-card-content>
           <mat-card-actions align="start">
-            <button mat-raised-button color="primary">
-              <mat-icon>print</mat-icon
-              ><span class="span-btn-with-icon">Print</span>
-            </button>
+            <app-btn-print type = "button"> </app-btn-print>
           </mat-card-actions>
         </mat-card>
       </div>
