@@ -1,5 +1,4 @@
 
-import { NgModule } from '@angular/core';
 import {
   Component,
   OnInit,
@@ -25,14 +24,14 @@ import { PrintLayoutComponent } from '../print-layout/print-layout.component';
 export class BtnPrintComponent implements OnInit, AfterViewInit {
   @Input() elements: any[];
   @Input() type: string;
-  miFactory: ComponentFactory<any>;
-  componentRef: ComponentRef<PrintLayoutComponent>; // se declara una variable referencia.
-  @ViewChild('printComponent', { read: ViewContainerRef }) compDynamicContainer: ViewContainerRef;
-
+ // miFactory: ComponentFactory<any>;
+  //componentRef: ComponentRef<PrintLayoutComponent>; // se declara una variable referencia.
+  //@ViewChild('printComponent', { read: ViewContainerRef }) compDynamicContainer: ViewContainerRef;
+  hasPrint = false;
 
 
   constructor(
-    private resolver: ComponentFactoryResolver,
+    //private resolver: ComponentFactoryResolver,
     ) { }
 
 
@@ -43,11 +42,11 @@ export class BtnPrintComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   print():void{
-    this.compDynamicContainer.clear();
-    const factory: ComponentFactory<PrintLayoutComponent> = this.resolver.resolveComponentFactory(PrintLayoutComponent);
-    this.componentRef = this.compDynamicContainer.createComponent(factory);
+    //this.compDynamicContainer.clear();
+    //const factory: ComponentFactory<PrintLayoutComponent> = this.resolver.resolveComponentFactory(PrintLayoutComponent);
+    //this.componentRef = this.compDynamicContainer.createComponent(factory);
+    this.hasPrint = true;
 
-    window.print();
     //const element = "<div #printComponent></div>";
     //this.compDynamicContainer.clear();
     //const factory: ComponentFactory<PrintLayoutComponent> = this.resolver.resolveComponentFactory(PrintLayoutComponent);
@@ -64,11 +63,3 @@ export class BtnPrintComponent implements OnInit, AfterViewInit {
 
 }
 
-
-@NgModule({
-  imports: [],
-  exports: [],
-  declarations: [BtnPrintComponent],
-  providers: [],
-})
-export class PrintBtnModule { }

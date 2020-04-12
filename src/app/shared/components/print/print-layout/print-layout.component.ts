@@ -11,7 +11,7 @@ export class PrintLayoutComponent implements OnInit {
   private externalWindow = null;
 
   ngOnInit(): void {
-    alert('ngOnInit');
+    window.print();
 
   }
 
