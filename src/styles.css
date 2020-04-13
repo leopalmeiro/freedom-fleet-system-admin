@@ -113,3 +113,12 @@ th.mat-sort-header-sorted {
   font-size: 30px;
 }
 
+/*
+@media print {
+  app-admin-main > * { display:none;}
+  app-top-menu > * { display:none;}
+  /* app-side-menu { display:none;}
+  app-footer > * { display:none;}
+
+}
+*/

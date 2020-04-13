@@ -8,5 +8,4 @@ import { MatSidenav } from "@angular/material/sidenav";
 })
 export class AppComponent {
   title = "freedom-fleet-admin";
-  @ViewChild("sidemenu") public sidemenu: MatSidenav;
 }

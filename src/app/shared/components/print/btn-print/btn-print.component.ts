@@ -24,9 +24,7 @@ import { PrintLayoutComponent } from '../print-layout/print-layout.component';
 export class BtnPrintComponent implements OnInit, AfterViewInit {
   @Input() elements: any[];
   @Input() type: string;
- // miFactory: ComponentFactory<any>;
-  //componentRef: ComponentRef<PrintLayoutComponent>; // se declara una variable referencia.
-  //@ViewChild('printComponent', { read: ViewContainerRef }) compDynamicContainer: ViewContainerRef;
+
   hasPrint = false;
 
 

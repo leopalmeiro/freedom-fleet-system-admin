@@ -1,0 +1,25 @@
+/*
+ .content{
+  border-style: solid;
+  border-color: black;
+  margin: 0;
+  margin-left: 100px;
+  border-bottom: brown;
+
+}
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: ;
+}
+:host ::ng-deep {
+
+  border-bottom: #2c3e50;
+  border-bottom-style: solid;
+}
+:host ::ng-deep img {
+  height: 100px;
+  width: 100px;
+}
+*/
+

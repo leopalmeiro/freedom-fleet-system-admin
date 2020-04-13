@@ -13,6 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { BtnPrintComponent } from './print/btn-print/btn-print.component';
 import { PrintLayoutComponent } from './print/print-layout/print-layout.component';
+import { PrintContainerComponent } from './print/print-container/print-container.component';
+import { PrintTitleComponent } from './print/print-title/print-title.component';
+import { PrintFooterComponent } from './print/print-footer/print-footer.component';
+import { PrintPageComponent } from './print/print-page/print-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { PrintLayoutComponent } from './print/print-layout/print-layout.componen
     ErrorHandlerComponent,
     ProgressBarComponent,
     BtnPrintComponent,
-    PrintLayoutComponent
+    PrintLayoutComponent,
+    PrintContainerComponent,
+    PrintTitleComponent,
+    PrintFooterComponent,
+    PrintPageComponent
   ],
   exports: [
     AdminMainComponent,
@@ -36,7 +44,9 @@ import { PrintLayoutComponent } from './print/print-layout/print-layout.componen
     BrowserAnimationsModule,
     BrowserModule,
     BtnPrintComponent,
-    PrintLayoutComponent
+    PrintLayoutComponent,
+    PrintPageComponent
+
   ],
   imports: [
     CommonModule,

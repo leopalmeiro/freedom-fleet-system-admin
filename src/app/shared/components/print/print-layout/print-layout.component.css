@@ -1,16 +1,18 @@
-.header, .header-space, .footer, .footer-space { height: 100px; }
-.header { position: fixed; top: 0; }
-.footer { position: fixed; bottom: 0; }
 
-
-
+  *{
+    border-style: solid;
+    border-color: black;
+    margin: 0;
+  }
+/*
 
 @media print {
 
-  * { display: block; }
 
+  .print { display: block; }
 }
 @media screen{
-* { display: none; }
-
+  .print { display: none; }
 }
+
+*/
