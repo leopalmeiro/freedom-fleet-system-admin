@@ -30,7 +30,7 @@ import { timer, Subscription } from "rxjs";
   ],
 })
 export class ErrorHandlerComponent implements OnInit, OnDestroy {
-  closeTime = timer(20000);
+  closeTime = timer(5000);
   hasError: boolean = false; // hasError
   show: boolean = false;
   error: ErroHandlerMessage;

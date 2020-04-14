@@ -7,7 +7,7 @@
       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null" routerLink="/vehicles">
         <mat-icon>drive_eta</mat-icon><span>Vehicles</span>
       </button>
-      <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
+<!--       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
         <mat-icon>sports_motorsports</mat-icon><span>Drivers</span>
       </button>
       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
@@ -15,11 +15,11 @@
       </button>
       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
         <mat-icon>settings</mat-icon><span>Settings</span>
-      </button>
+      </button> -->
     </mat-action-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <router-outlet></router-outlet>
+    <router-outlet ></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

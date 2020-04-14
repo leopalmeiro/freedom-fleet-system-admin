@@ -20,8 +20,6 @@ export class SidemenuService {
   }
 
   toggle(): void {
-    console.log("toggle service");
-
     this.sidemenu.toggle();
   }
 }

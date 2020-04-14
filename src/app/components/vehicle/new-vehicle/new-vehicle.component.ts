@@ -1,6 +1,6 @@
 import { SubSink } from "subsink";
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormBuilder, FormGroup, Validators, FormControl,NgForm} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl,NgForm, MinLengthValidator} from "@angular/forms";
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
 import { Vehicle } from "src/app/shared/models/vehicle";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -66,8 +66,7 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
       }
     );
   }
-  onSubmit(form): void {
-
+  onSubmit(): void {
     const vehicle: Vehicle = this.vehicleForm.value;
     if (this.isEditMode) {
       this.vehicleService.updateVehicle(this.vehicleForm.value);
@@ -75,18 +74,15 @@ export class NewVehicleComponent implements OnInit, OnDestroy {
       this.vehicleService.addVehicle(this.vehicleForm.value);
     }
     this.router.navigate(["/vehicles"]);
-
   }
 
-  resetForm(): void {
-  }
   ngOnInit(): void {
     this.vehicleForm = this.fb.group({
       id: new FormControl(''),
       name: new FormControl('',[Validators.required]),
       model: new FormControl('',[Validators.required]),
       plate: new FormControl('',[Validators.required]),
-      year: new FormControl('',[Validators.required]),
+      year: new FormControl('',[Validators.required,  Validators.pattern('[0-9]{4}')]),
       qrdata: new FormControl(''),
     });
 
