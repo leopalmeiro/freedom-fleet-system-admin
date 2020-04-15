@@ -13,21 +13,29 @@ export class VehicleService {
   private subject = new Subject<Vehicle[]>();
 
   constructor(private progressBarService: ProgressBarService) {}
-
+  /**
+   * getVehicles method retrive all Vehicles
+   */
   getVehicles(): Observable<Vehicle[]> {
     this.getDelay();
     this.subject.next(this.v);
     return this.subject.asObservable();
   }
 
+  /**
+   * AddVehicle Method
+   * @param vehicle
+   */
   addVehicle(vehicle: Vehicle): void {
     this.getDelay();
     vehicle.id = this.v.length + 1;
     this.v.push(vehicle);
-    console.log(this.v);
   }
-
-  removeVehicle(vehicleId): void {
+  /**
+   * Remove Vehicle Method
+   * @param vehicleId
+   */
+  removeVehicle(vehicleId: number): void {
     this.getDelay();
     const index = vehicleId - 1;
     this.v.splice(index, 1);
@@ -38,7 +46,10 @@ export class VehicleService {
     }
     this.subject.next(this.v);
   }
-
+  /**
+   * Update Vehicle Method
+   * @param vehicle Object
+   */
   updateVehicle(vehicle: Vehicle): void {
     this.getDelay();
     const index = this.v.indexOf(this.getVehicleByID(vehicle.id), 0);
@@ -47,10 +58,18 @@ export class VehicleService {
       this.subject.next(this.v);
     }
   }
+
+  /**
+   * getVehicleByID method
+   * @param id Id of Vehicle
+   * @returns Object of Vehicle
+   */
   getVehicleByID(id): Vehicle {
     return this.v.find((veih) => veih.id === +id);
   }
-
+  /**
+   * getdelay
+   */
   getDelay(): void {
     this.progressBarService.active();
     setTimeout(() => {

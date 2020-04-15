@@ -1,17 +1,12 @@
-import { Router, ActivatedRoute } from "@angular/router";
-import { SubSink } from "subsink";
-import { BreakpointService } from "./../../core/services/layout/breakpoint.service";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
-
-import { ConfirmationModalComponent } from "./../../shared/components/confirmation-modal/confirmation-modal.component";
-import { ConfirmationMessage } from "./../../shared/models/confirmation-message";
-import { Vehicle } from 'src/app/shared/models/vehicle';
-import { VehicleService } from 'src/app/core/services/vehicle/vehicle.service';
-
-
+import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
+import { BreakpointService } from 'src/app/core/services/layout/breakpoint.service';
+import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
+import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
+import { SubSink } from "subsink";
 
 @Component({
   selector: "app-vehicle",
@@ -28,43 +23,78 @@ export class VehicleComponent implements OnInit, OnDestroy {
     "plate",
     "actions",
   ];
-
   displayedColumnsMobile: string[] = ["id", "name", "model", "actions"];
+
   dataSource = new MatTableDataSource();
-  isMobile: boolean;
+
   private subs = new SubSink();
+
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  typePrintButton = 'icon';
-  elements
+  isMobile: boolean = false;
+  /**
+   * Constructor Method
+   * @param dialog
+   * @param breakpointService
+   * @param router
+   * @param vehicleService
+   */
   constructor(
     public dialog: MatDialog,
-    private breakpointService: BreakpointService,
+    public breakpointService: BreakpointService,
     private router: Router,
     private vehicleService: VehicleService
   ) {}
 
+  /**
+   * OnInitMethod
+   */
   ngOnInit(): void {
-    this.displayedColumns = this.displayedColumnsAllElements;
     this.dataSource.sort = this.sort;
     this.getVehicles();
-    this.getScreenSize();
+    this.getSizeScreen();
   }
+  /**
+   * get size Screen method verify when the screen is XS(mobile size)
+   */
+  getSizeScreen(): void {
+    this.subs.sink = this.breakpointService.isMobile$.subscribe(value => {
+      if(value){
+        this.displayedColumns = this.displayedColumnsMobile;
+      }else{
+        this.displayedColumns = this.displayedColumnsAllElements;
+      }
+    }
 
-  getVehicles(): void{
-    this.subs.sink = this.vehicleService.getVehicles().subscribe(data => {
+      );
+  }
+  /**
+   * getVehicles method for get all vehicles.
+   */
+  getVehicles(): void {
+    this.subs.sink = this.vehicleService.getVehicles().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
     });
     this.vehicleService.getVehicles();
   }
+  /**
+   * onDestroy method
+   */
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
-
+  /**
+   * ApplyFilter Method responsable for filter elements
+   * @param event
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
   }
+
+  /**
+   * Open Dialog for Delete items
+   * @param item
+   */
   openDialog(item): void {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
       data: { title: "Remove Vehicle", id: item.id },
@@ -74,29 +104,11 @@ export class VehicleComponent implements OnInit, OnDestroy {
       this.vehicleService.removeVehicle(result);
     });
   }
+  /**
+   * Open edit Method for vehicles Edit router
+   * @param obj
+   */
   openEdit(obj): void {
-    console.log(obj);
-
     this.router.navigate(["/vehicles/edit", obj.id]);
-  }
-
-  getScreenSize(): void {
-    this.subs.sink = this.breakpointService.screenSizeObserver.subscribe(
-      (data) => {
-        const screenSize = data;
-        screenSize.find((x) => {
-          console.log(`size${x}`);
-
-          if (x === "xs") {
-            this.isMobile = true;
-            //when is mobile remove year column
-            this.displayedColumns = this.displayedColumnsMobile;
-          } else {
-            this.displayedColumns = this.displayedColumnsAllElements;
-            this.isMobile = false;
-          }
-        });
-      }
-    );
   }
 }

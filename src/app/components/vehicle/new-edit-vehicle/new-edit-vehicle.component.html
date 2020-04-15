@@ -11,7 +11,13 @@
     #myForm="ngForm"
   >
     <div class="container-box">
-      <div [ngClass]="{ 'item-mobile': isMobile, item: !isMobile }">
+      <div [ngClass]="{ 'item-mobile': (breakpointService.isXSScreen ||
+      breakpointService.isSMScreen ||
+      breakpointService.isMDScreen)
+      , item: !(breakpointService.isXSScreen ||
+      breakpointService.isSMScreen ||
+      breakpointService.isMDScreen)
+       }">
         <mat-card>
           <mat-card-title-group>
             <mat-card-title *ngIf="!isEditMode"
@@ -94,12 +100,21 @@
       </div>
 
       <!-- flex break when if mobile -->
-      <div *ngIf="isMobile" class="break"></div>
+      <div *ngIf="(breakpointService.isXSScreen ||
+      breakpointService.isSMScreen ||
+      breakpointService.isMDScreen)
+      " class="break"></div>
       <!--flex break when if mobile -->
 
       <div
         *ngIf="showRQCode"
-        [ngClass]="{ 'item-mobile': isMobile, item: !isMobile }"
+        [ngClass]="{ 'item-mobile': (breakpointService.isXSScreen ||
+        breakpointService.isSMScreen ||
+        breakpointService.isMDScreen)
+        , item: !(breakpointService.isXSScreen ||
+        breakpointService.isSMScreen ||
+        breakpointService.isMDScreen)
+         }"
       >
         <mat-card>
           <mat-card-title-group>

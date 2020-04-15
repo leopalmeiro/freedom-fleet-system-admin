@@ -1,5 +1,6 @@
 mat-sidenav-container {
   height: 88vh;
+
 }
 mat-action-list {
   width: 200px;
@@ -14,10 +15,17 @@ span {
 }
 .side-menu {
   background-color: #ecf0f1;
+
 }
 
 mat-sidenav-content {
   padding: 12px;
   display: flex;
   flex-direction: column;
+/*   background-image: url('./../../../../assets/img/logoBig.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 600px auto;
+ */
 }
+

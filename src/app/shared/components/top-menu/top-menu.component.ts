@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { BreakpointService } from 'src/app/core/services/layout/breakpoint.service';
-import { SidemenuService } from "./../../../core/services/sidemenu/sidemenu.service";
+import { SidemenuService } from 'src/app/core/services/sidemenu/sidemenu.service';
 
 @Component({
   selector: "app-top-menu",

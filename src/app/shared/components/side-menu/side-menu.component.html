@@ -1,13 +1,50 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidemenu [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? false: true" class="side-menu">
+  <mat-sidenav
+    #sidemenu
+    [mode]="
+      (breakpointService.isXSScreen ||
+      breakpointService.isSMScreen ||
+      breakpointService.isMDScreen)
+        ? 'over'
+        : 'side'
+    "
+    [opened]="
+      (breakpointService.isXSScreen ||
+      breakpointService.isSMScreen ||
+      breakpointService.isMDScreen)
+        ? false
+        : true
+    "
+    class="side-menu"
+  >
     <mat-action-list>
-      <button mat-list-item (click)="isMobile?sidemenu.toggle(): null" routerLink="/">
+      <button
+        mat-list-item
+        (click)="
+          breakpointService.isXSScreen ||
+          breakpointService.isSMScreen ||
+          breakpointService.isMDScreen
+            ? sidemenu.toggle()
+            : null
+        "
+        routerLink="/"
+      >
         <mat-icon>home</mat-icon><span>Dashboard</span>
       </button>
-      <button mat-list-item (click)="isMobile?sidemenu.toggle(): null" routerLink="/vehicles">
+      <button
+        mat-list-item
+        (click)="
+          breakpointService.isXSScreen ||
+          breakpointService.isSMScreen ||
+          breakpointService.isMDScreen
+            ? sidemenu.toggle()
+            : null
+        "
+        routerLink="/vehicles"
+      >
         <mat-icon>drive_eta</mat-icon><span>Vehicles</span>
       </button>
-<!--       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
+      <!--       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
         <mat-icon>sports_motorsports</mat-icon><span>Drivers</span>
       </button>
       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
@@ -20,6 +57,6 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <router-outlet ></router-outlet>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

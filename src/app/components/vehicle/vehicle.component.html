@@ -2,7 +2,6 @@
   <mat-card>
     <mat-card-title>Vehicles</mat-card-title>
   </mat-card>
-
 </div>
 <app-error-handler></app-error-handler>
 
@@ -64,7 +63,7 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header class="print" > Actions </mat-header-cell>
                 <mat-cell class="print" *matCellDef="let element">
                   <div>
-                    <button *ngIf="!isMobile" mat-icon-button class="icon-edit"
+                    <button *ngIf="!breakpointService.isXSScreen" mat-icon-button class="icon-edit"
                       [routerLink]="['/vehicles/edit', element.id ]">
                       <mat-icon class="icon-hover">create</mat-icon>
                     </button>
@@ -74,9 +73,14 @@
                   </div>
                 </mat-cell>
               </ng-container>
+
+
               <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="isMobile ? openEdit(row): null ">
+              <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="breakpointService.isXSScreen ? openEdit(row): null ">
               </mat-row>
+
+
+
             </mat-table>
           </div>
           <!-- <mat-paginator [length]="220" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">">

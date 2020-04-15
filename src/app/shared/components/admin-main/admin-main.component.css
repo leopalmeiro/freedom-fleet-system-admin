@@ -3,13 +3,16 @@
   :host ::ng-deep .print{
     display: none;
   }
-  /*remove top menu*/
+  /*remove top menu
   app-top-menu {
     display: none;
-  }
+  }*/
   /*remove footer*/
   app-footer {
     display: none;
+  }
+  :host ::ng-deep a{
+    color: black!important;
   }
   /*remove side menu*/
   :host ::ng-deep mat-sidenav {

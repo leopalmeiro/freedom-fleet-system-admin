@@ -8,9 +8,13 @@ import { delay } from 'rxjs/operators';
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.css']
 })
-export class ProgressBarComponent implements OnInit, OnDestroy {
+export class ProgressBarComponent implements OnDestroy {
   private subs = new SubSink();
   mode = '';
+  /**
+   * Constructor Method
+   * @param progressBarService
+   */
   constructor(private progressBarService: ProgressBarService) {
     this.subs.sink = this.progressBarService.active().subscribe( async mode =>{
       this.mode = await mode;
@@ -19,12 +23,6 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
       this.mode = await mode;
     });
    }
-
-  ngOnInit(): void {
-    console.log('on init progressbar');
-
-  }
-
   ngOnDestroy(): void{
     this.subs.unsubscribe();
   }

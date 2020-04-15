@@ -1,19 +1,8 @@
-import { ErroHandlerMessage } from "./../../models/erro-handler-message";
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  OnDestroy,
-} from "@angular/core";
-import {
-  trigger,
-  style,
-  animate,
-  state,
-  transition,
-} from "@angular/animations";
-import { ErroHandlerService } from "./../../../core/services/erro-handler.service";
-import { timer, Subscription } from "rxjs";
+import { animate, style, transition, trigger } from "@angular/animations";
+import { Component, OnDestroy } from "@angular/core";
+import { Subscription, timer } from "rxjs";
+import { ErroHandlerMessage } from '../../models/erro-handler-message';
+import { ErroHandlerService } from 'src/app/core/services/erro-handler.service';
 
 @Component({
   selector: "app-error-handler",
@@ -29,16 +18,19 @@ import { timer, Subscription } from "rxjs";
     ]),
   ],
 })
-export class ErrorHandlerComponent implements OnInit, OnDestroy {
+export class ErrorHandlerComponent implements OnDestroy {
   closeTime = timer(5000);
   hasError: boolean = false; // hasError
   show: boolean = false;
   error: ErroHandlerMessage;
   subscription: Subscription;
 
+  /**
+   * Constructor Method
+   * @param erroService
+   */
   constructor(private erroService: ErroHandlerService) {
     this.subscription = this.erroService.getErrors().subscribe((data) => {
-      console.log(`data: ${data}`);
       if (data) {
         this.hasError = true;
         this.error = data;
@@ -49,17 +41,18 @@ export class ErrorHandlerComponent implements OnInit, OnDestroy {
       this.setTimer();
     });
   }
-
-  ngOnInit(): void {}
-
+  /**
+   * Set Timer Method
+   */
   setTimer() {
     this.closeTime.subscribe(() => {
       this.show = false;
     });
   }
+  /**
+   * OnDestroy Method
+   */
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    console.log("Ondestroy");
     this.subscription.unsubscribe();
   }
 }

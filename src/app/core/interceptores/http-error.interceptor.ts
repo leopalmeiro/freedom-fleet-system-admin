@@ -18,8 +18,17 @@ import { ProgressBarService } from '../services/progress-bar/progress-bar.servic
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
   erroHandlerMessage: ErroHandlerMessage;
+  /**
+   * Constructor Method
+   * @param erroHandlerService
+   * @param progressBarService
+   */
   constructor(private erroHandlerService: ErroHandlerService, private progressBarService: ProgressBarService) {}
-
+  /**
+   * Intercept Method
+   * @param request
+   * @param next
+   */
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -38,7 +47,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         } else {
           // server-side error
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-          console.log(errorMessage);
           this.erroHandlerMessage = {
             codeError: error.status,
             error: error.message,

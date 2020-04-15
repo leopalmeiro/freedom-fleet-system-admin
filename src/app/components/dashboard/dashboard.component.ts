@@ -10,10 +10,16 @@ import { SubSink } from "subsink";
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private subs = new SubSink();
+  /**
+   * COnstructor Method
+   * @param service
+   */
   constructor(private service: TestservService) {}
+  /**
+   * OnInit Method
+   */
   ngOnInit(): void {
     this.subs.sink = this.service.getUsers().subscribe((data) => {
-      console.log(data);
     });
   }
   ngOnDestroy(): void {

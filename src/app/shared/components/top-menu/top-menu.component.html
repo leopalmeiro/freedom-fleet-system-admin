@@ -3,8 +3,9 @@
     <button mat-icon-button (click)="toggleSidemenu()">
       <mat-icon>menu</mat-icon>
     </button>
-    <img class="logo_top" src="assets/img/logoTopo.png" *ngIf="!breakpointServer.isXSScreen"/>
-    <span>Freedom Fleet System</span>
+    <a href="http://google.com"><img class="logo_top" src="assets/img/logoTopo.png" *ngIf="!breakpointServer.isXSScreen"/></a>
+    <a href="http://google.com"><span>Freedom Fleet System</span></a>
+
     <span class="example-spacer"></span>
 
     <button mat-icon-button [matMenuTriggerFor]="appMenu">
