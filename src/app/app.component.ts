@@ -1,5 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
-import { MatSidenav } from "@angular/material/sidenav";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-root",
@@ -8,4 +7,5 @@ import { MatSidenav } from "@angular/material/sidenav";
 })
 export class AppComponent {
   title = "freedom-fleet-admin";
+
 }

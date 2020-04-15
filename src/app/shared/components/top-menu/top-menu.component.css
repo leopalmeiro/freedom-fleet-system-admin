@@ -13,3 +13,8 @@ mat-toolbar {
 button:hover {
   background-color: #ecf0f156;
 }
+
+.logo_top{
+  margin-left: 10px;
+  margin-right: 10px;
+}

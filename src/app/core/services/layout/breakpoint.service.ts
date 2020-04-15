@@ -13,11 +13,17 @@ export enum Breakpoints {
   providedIn: "root",
 })
 export class BreakpointService {
-  xsBreakpoint = ["(max-width:575.98px)"];
-  smBreakpoint = ["(min-width:576px) and (max-width:767.98px)"];
-  mdBreakpoint = ["(min-width:768px) and (max-width:991.98px)"];
-  lgBreakpoint = ["(min-width:992px) and (max-width:1199.98px)"];
-  xlBreakpoint = "(min-width:1200px)";
+  private xsBreakpoint = ["(max-width:575.98px)"];
+  private smBreakpoint = ["(min-width:576px) and (max-width:767.98px)"];
+  private mdBreakpoint = ["(min-width:768px) and (max-width:991.98px)"];
+  private lgBreakpoint = ["(min-width:992px) and (max-width:1199.98px)"];
+  private xlBreakpoint = "(min-width:1200px)";
+
+  public isXSScreen: boolean = false;
+  public isSMScreen: boolean = false;
+  public isMDScreen: boolean = false;
+  public isLGScreen: boolean = false;
+  public isXLScreen: boolean = false;
 
   public screenSizeObserver = new BehaviorSubject<Breakpoints[]>([
     Breakpoints.XS,
@@ -31,37 +37,30 @@ export class BreakpointService {
     this.breakpointObserver
       .observe(this.xsBreakpoint)
       .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.screenSizeObserver.next([Breakpoints.XS]);
-        }
+        state.matches ? this.isXSScreen = true : this.isXSScreen = false;
       });
     this.breakpointObserver
       .observe(this.smBreakpoint)
       .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.screenSizeObserver.next([Breakpoints.SM]);
-        }
+        state.matches ? this.isSMScreen = true : this.isSMScreen = false;
       });
     this.breakpointObserver
       .observe(this.mdBreakpoint)
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          this.screenSizeObserver.next([Breakpoints.MD]);
+          state.matches ? this.isMDScreen = true : this.isMDScreen = false;
         }
       });
     this.breakpointObserver
       .observe(this.lgBreakpoint)
       .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.screenSizeObserver.next([Breakpoints.LG]);
-        }
+        state.matches ? this.isLGScreen = true : this.isLGScreen = false;
       });
     this.breakpointObserver
       .observe(this.xlBreakpoint)
       .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.screenSizeObserver.next([Breakpoints.XL]);
-        }
+        state.matches ? this.isXLScreen = true : this.isXLScreen = false;
+
       });
   }
 }
