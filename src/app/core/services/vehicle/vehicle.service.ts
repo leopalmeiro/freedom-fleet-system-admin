@@ -4,6 +4,8 @@ import { Vehicle } from "src/app/shared/models/vehicle";
 import { VEHICLES } from "src/app/mocks/mocks";
 import { delay, map } from "rxjs/operators";
 import { ProgressBarService } from "../progress-bar/progress-bar.service";
+import { Apollo } from "apollo-angular";
+import gql from "graphql-tag";
 
 @Injectable({
   providedIn: "root",
@@ -11,17 +13,72 @@ import { ProgressBarService } from "../progress-bar/progress-bar.service";
 export class VehicleService {
   private v = [...VEHICLES];
   private subject = new Subject<Vehicle[]>();
+  vehicles: Observable<Vehicle[]>;
 
-  constructor(private progressBarService: ProgressBarService) {}
+  constructor(
+    private progressBarService: ProgressBarService,
+    private apollo: Apollo
+  ) {}
   /**
    * getVehicles method retrive all Vehicles
    */
   getVehicles(): Observable<Vehicle[]> {
-    this.getDelay();
-    this.subject.next(this.v);
-    return this.subject.asObservable();
-  }
+    this.progressBarService.active();
+        this.subject.next(this.v);
+        //this.getVeic();
+    return this.apollo
+    .watchQuery<Vehicle[]>({
+      query: gql `{ vehicles {
+        model
+        year
+        plate
+         } }`
 
+      })
+      .valueChanges.
+      pipe(
+        map( (resut) => {
+          if(!resut.loading) this.progressBarService.desactive();
+          return resut.data;
+        }
+      ));
+
+    /* pipe(
+      map((result) => {
+        console.log(`result ${result}`);
+
+        if (result.errors) {
+          alert(result.errors);
+        }
+        alert(result.data);
+        return result.data;
+      })
+    ); */
+
+/*     .subscribe((response) => {
+      // 5
+      this.allLinks = response.data.allLinks;
+      this.loading = response.data.loading;
+     });
+ */
+   // return v ;//this.subject.asObservable();
+  }
+ /*  getVeic(){
+    let res;
+    let data;
+    let loading;
+    this.apollo.query({
+      query: gql `{ vehicles { _id } }`
+    }).subscribe(resp => {
+      res = resp;
+      console.log(res);
+      data = res.data.vehicle;
+
+      console.log(data);
+      console.log(loading)
+    });
+
+  }*/
   /**
    * AddVehicle Method
    * @param vehicle

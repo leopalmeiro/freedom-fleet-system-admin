@@ -26,21 +26,24 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Lambo">
           </mat-form-field>
           <div class="table-with-scroll" >
+            <div *ngFor="let item of dataSource">
+              {{item.year}}
+            </div>
             <mat-table class="mat-elevation-z8" [dataSource]="dataSource" matSort>
 
-              <!-- Position Column -->
+              <!-- Position Column
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Id. </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-              </ng-container>
+              </ng-container>-->
 
-              <!-- Name Column -->
+              <!-- Name Column
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-              </ng-container>
+              </ng-container>-->
 
-              <!-- Model Column -->
+              <!-- Model Column-->
               <ng-container matColumnDef="model">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Model </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.model}} </mat-cell>
@@ -51,7 +54,7 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Year </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.year}} </mat-cell>
               </ng-container>
-              <!-- Plate Column -->
+              <!-- Plate Column-->
               <ng-container matColumnDef="plate">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Plate </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.plate}} </mat-cell>

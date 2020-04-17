@@ -7,6 +7,9 @@ import { BreakpointService } from 'src/app/core/services/layout/breakpoint.servi
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
 import { SubSink } from "subsink";
+import { Vehicle } from 'src/app/shared/models/vehicle';
+import { VEHICLES } from 'src/app/mocks/mocks';
+
 
 @Component({
   selector: "app-vehicle",
@@ -16,19 +19,21 @@ import { SubSink } from "subsink";
 export class VehicleComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [];
   displayedColumnsAllElements: string[] = [
-    "id",
-    "name",
+    //"name",
     "model",
     "year",
     "plate",
     "actions",
   ];
-  displayedColumnsMobile: string[] = ["id", "name", "model", "actions"];
+
+   vechicleList = [VEHICLES];
+
+  displayedColumnsMobile: string[] = [ "name", "model", "actions"];
 
   dataSource = new MatTableDataSource();
 
   private subs = new SubSink();
-
+  veis:Vehicle[];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isMobile: boolean = false;
   /**
@@ -71,9 +76,17 @@ export class VehicleComponent implements OnInit, OnDestroy {
    * getVehicles method for get all vehicles.
    */
   getVehicles(): void {
+
     this.subs.sink = this.vehicleService.getVehicles().subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
+      console.log(`data ${data}`);
+      data.forEach(element => {
+        alert(element.id);
+
+      });
+      this.veis = data;
     });
+    this.dataSource = new MatTableDataSource(this.veis);
+
     this.vehicleService.getVehicles();
   }
   /**
