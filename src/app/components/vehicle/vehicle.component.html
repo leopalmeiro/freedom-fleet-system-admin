@@ -21,26 +21,24 @@
               <mat-icon>add_circle_outline</mat-icon><span class="span-btn-with-icon">New</span>
             </button>
           </div>
-          <mat-form-field appearance="outline" class="print">
+         <mat-form-field appearance="outline" class="print">
             <mat-label >Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Lambo">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Ferrari">
           </mat-form-field>
+
           <div class="table-with-scroll" >
-            <div *ngFor="let item of dataSource">
-              {{item.year}}
-            </div>
             <mat-table class="mat-elevation-z8" [dataSource]="dataSource" matSort>
 
               <!-- Position Column
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Id. </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
               </ng-container>-->
 
-              <!-- Name Column
-              <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+              <!-- Name Column-->
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
               </ng-container>-->
 
               <!-- Model Column-->
@@ -67,7 +65,7 @@
                 <mat-cell class="print" *matCellDef="let element">
                   <div>
                     <button *ngIf="!breakpointService.isXSScreen" mat-icon-button class="icon-edit"
-                      [routerLink]="['/vehicles/edit', element.id ]">
+                      [routerLink]="['/vehicles/edit', element._id ]">
                       <mat-icon class="icon-hover">create</mat-icon>
                     </button>
                     <button mat-icon-button class="icon-delete" (click)="openDialog(element)">

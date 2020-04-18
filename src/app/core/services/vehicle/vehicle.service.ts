@@ -6,6 +6,10 @@ import { delay, map } from "rxjs/operators";
 import { ProgressBarService } from "../progress-bar/progress-bar.service";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+import { QueryGraph } from 'src/app/shared/types/Query';
+
+
+
 
 @Injectable({
   providedIn: "root",
@@ -19,73 +23,50 @@ export class VehicleService {
     private progressBarService: ProgressBarService,
     private apollo: Apollo
   ) {}
-  /**
-   * getVehicles method retrive all Vehicles
-   */
+
   getVehicles(): Observable<Vehicle[]> {
     this.progressBarService.active();
         this.subject.next(this.v);
         //this.getVeic();
+
     return this.apollo
-    .watchQuery<Vehicle[]>({
+    .watchQuery<QueryGraph>({
       query: gql `{ vehicles {
+        _id
+        type
         model
         year
         plate
-         } }`
+        qrdata
+       }
+      }`
 
       })
       .valueChanges.
       pipe(
         map( (resut) => {
           if(!resut.loading) this.progressBarService.desactive();
-          return resut.data;
+          return resut.data.vehicles;
         }
       ));
 
-    /* pipe(
-      map((result) => {
-        console.log(`result ${result}`);
-
-        if (result.errors) {
-          alert(result.errors);
-        }
-        alert(result.data);
-        return result.data;
-      })
-    ); */
-
-/*     .subscribe((response) => {
-      // 5
-      this.allLinks = response.data.allLinks;
-      this.loading = response.data.loading;
-     });
- */
-   // return v ;//this.subject.asObservable();
-  }
- /*  getVeic(){
-    let res;
-    let data;
-    let loading;
-    this.apollo.query({
-      query: gql `{ vehicles { _id } }`
-    }).subscribe(resp => {
-      res = resp;
-      console.log(res);
-      data = res.data.vehicle;
-
-      console.log(data);
-      console.log(loading)
-    });
-
-  }*/
+      }
   /**
+   * getVehicles method retrive all Vehicles
+
+  getVehicles(): Observable<Vehicle[]> {
+    this.progressBarService.active();
+        this.subject.next(this.v);
+      return this.subject.asObservable();
+  }
+  */
+      /**
    * AddVehicle Method
    * @param vehicle
    */
   addVehicle(vehicle: Vehicle): void {
     this.getDelay();
-    vehicle.id = this.v.length + 1;
+    //vehicle.id = this.v.length + 1;
     this.v.push(vehicle);
   }
   /**
@@ -97,9 +78,9 @@ export class VehicleService {
     const index = vehicleId - 1;
     this.v.splice(index, 1);
     for (var i = 0; i < this.v.length; i++) {
-      if (this.v[i].id === vehicleId) {
+      /* if (this.v[i].id === vehicleId) {
         this.v.splice(i, 1);
-      }
+      } */
     }
     this.subject.next(this.v);
   }
@@ -122,7 +103,8 @@ export class VehicleService {
    * @returns Object of Vehicle
    */
   getVehicleByID(id): Vehicle {
-    return this.v.find((veih) => veih.id === +id);
+    return null;
+    //return this.v.find((veih) => veih.id === +id);
   }
   /**
    * getdelay

@@ -3,13 +3,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
-import { BreakpointService } from 'src/app/core/services/layout/breakpoint.service';
+import { BreakpointService } from "src/app/core/services/layout/breakpoint.service";
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
-import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from "src/app/shared/components/confirmation-modal/confirmation-modal.component";
 import { SubSink } from "subsink";
-import { Vehicle } from 'src/app/shared/models/vehicle';
-import { VEHICLES } from 'src/app/mocks/mocks';
-
+import { Vehicle } from "src/app/shared/models/vehicle";
+import { VEHICLES } from "src/app/mocks/mocks";
 
 @Component({
   selector: "app-vehicle",
@@ -19,21 +18,17 @@ import { VEHICLES } from 'src/app/mocks/mocks';
 export class VehicleComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [];
   displayedColumnsAllElements: string[] = [
-    //"name",
+    "type",
     "model",
     "year",
     "plate",
     "actions",
   ];
-
-   vechicleList = [VEHICLES];
-
-  displayedColumnsMobile: string[] = [ "name", "model", "actions"];
-
+  displayedColumnsMobile: string[] = ["type", "model", "plate", "actions"];
   dataSource = new MatTableDataSource();
 
   private subs = new SubSink();
-  veis:Vehicle[];
+  veis: Vehicle[];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isMobile: boolean = false;
   /**
@@ -48,7 +43,9 @@ export class VehicleComponent implements OnInit, OnDestroy {
     public breakpointService: BreakpointService,
     private router: Router,
     private vehicleService: VehicleService
-  ) {}
+  ) {
+
+  }
 
   /**
    * OnInitMethod
@@ -62,32 +59,24 @@ export class VehicleComponent implements OnInit, OnDestroy {
    * get size Screen method verify when the screen is XS(mobile size)
    */
   getSizeScreen(): void {
-    this.subs.sink = this.breakpointService.isMobile$.subscribe(value => {
-      if(value){
+    this.subs.sink = this.breakpointService.isMobile$.subscribe((value) => {
+      if (value) {
         this.displayedColumns = this.displayedColumnsMobile;
-      }else{
+      } else {
         this.displayedColumns = this.displayedColumnsAllElements;
       }
-    }
-
-      );
+    });
   }
   /**
    * getVehicles method for get all vehicles.
    */
   getVehicles(): void {
-
+    //const el: Vehicle[] = VEHICLES;
+    //this.vehicleService.getVehicles();
+    //this.dataSource = new MatTableDataSource(this.veis);
     this.subs.sink = this.vehicleService.getVehicles().subscribe((data) => {
-      console.log(`data ${data}`);
-      data.forEach(element => {
-        alert(element.id);
-
-      });
-      this.veis = data;
+      this.dataSource = new MatTableDataSource(data);
     });
-    this.dataSource = new MatTableDataSource(this.veis);
-
-    this.vehicleService.getVehicles();
   }
   /**
    * onDestroy method
@@ -110,7 +99,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
    */
   openDialog(item): void {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      data: { title: "Remove Vehicle", id: item.id },
+      data: { title: "Remove Vehicle", id: item._id, type: item.type },
     });
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {

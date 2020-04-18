@@ -1,9 +1,9 @@
 export interface Vehicle {
-  id: number;
-  name: String;
+  _id: String;
+  type: String;
   model: String;
   year: number;
   plate: String;
   qrdata: String;
-
 }
+
