@@ -88,12 +88,12 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
 
   setValues(vehicle: Vehicle): void {
     this.vehicleForm.patchValue({
-      id: vehicle.id,
-      name: vehicle.name,
+      id: vehicle._id,
+      name: vehicle.type,
       model: vehicle.model,
       plate: vehicle.plate,
       year: vehicle.year,
-      qrdata: "96a3be3cf272e017046d1b2674a52bd3",
+      qrdata: vehicle.qrdata,
     });
   }
 }

@@ -4,7 +4,8 @@ import { CommonModule } from "@angular/common";
 import { TestservService } from "./testserv.service";
 import { ErroHandlerService } from "./erro-handler.service";
 import { SidemenuService } from "./sidemenu/sidemenu.service";
-import { ProgressBarService } from './progress-bar/progress-bar.service';
+import { ProgressBarService } from "./progress-bar/progress-bar.service";
+import { VehicleService } from "./vehicle/vehicle.service";
 
 @NgModule({
   declarations: [],
@@ -14,7 +15,8 @@ import { ProgressBarService } from './progress-bar/progress-bar.service';
     TestservService,
     SidemenuService,
     BreakpointService,
-    ProgressBarService
+    ProgressBarService,
+    VehicleService,
   ],
 })
 export class ServicesModule {}

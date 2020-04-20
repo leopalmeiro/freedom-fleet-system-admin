@@ -8,7 +8,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
-import { retry, catchError, delay } from "rxjs/operators";
+import { retry, catchError, delay, tap } from "rxjs/operators";
 import { ErroHandlerService } from "./../services/erro-handler.service";
 import { ErroHandlerMessage } from "./../../shared/models/erro-handler-message";
 import { ProgressBarService } from '../services/progress-bar/progress-bar.service';
@@ -36,6 +36,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     this.progressBarService.active();
     return next.handle(request).pipe(
       retry(1),
+      //when success but when doesnt has a id http status = 200
+      //tap(data => {
+      //  alert(JSON.stringify(data));
+      //}),
       catchError((error: HttpErrorResponse) => {
         let errorMessage = "";
         if (error.error instanceof ErrorEvent) {
@@ -52,14 +56,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             error: error.message,
           };
         }
-        //TODO remove timeout when fisinh the services
         this.erroHandlerService.addError(this.erroHandlerMessage);
-        setTimeout(() => {
-          this.progressBarService.desactive();
-
-        }, 5000);
         return throwError(errorMessage);
-      })
+      }),
+
     );
   }
 }

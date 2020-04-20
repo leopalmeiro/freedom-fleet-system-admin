@@ -3,12 +3,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { Observable } from "apollo-link";
 import { BreakpointService } from "src/app/core/services/layout/breakpoint.service";
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
 import { ConfirmationModalComponent } from "src/app/shared/components/confirmation-modal/confirmation-modal.component";
-import { SubSink } from "subsink";
 import { Vehicle } from "src/app/shared/models/vehicle";
-import { VEHICLES } from "src/app/mocks/mocks";
+import { SubSink } from "subsink";
 
 @Component({
   selector: "app-vehicle",
@@ -25,12 +25,13 @@ export class VehicleComponent implements OnInit, OnDestroy {
     "actions",
   ];
   displayedColumnsMobile: string[] = ["type", "model", "plate", "actions"];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Vehicle>();
 
   private subs = new SubSink();
-  veis: Vehicle[];
+  vehicles: Vehicle[];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isMobile: boolean = false;
+  posts: Observable<any[]>;
   /**
    * Constructor Method
    * @param dialog
@@ -43,9 +44,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     public breakpointService: BreakpointService,
     private router: Router,
     private vehicleService: VehicleService
-  ) {
-
-  }
+  ) {}
 
   /**
    * OnInitMethod
@@ -71,9 +70,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
    * getVehicles method for get all vehicles.
    */
   getVehicles(): void {
-    //const el: Vehicle[] = VEHICLES;
-    //this.vehicleService.getVehicles();
-    //this.dataSource = new MatTableDataSource(this.veis);
     this.subs.sink = this.vehicleService.getVehicles().subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
     });
@@ -103,9 +99,22 @@ export class VehicleComponent implements OnInit, OnDestroy {
     });
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      this.vehicleService.removeVehicle(result);
+      if (result !== "") {
+        this.subs.sink = this.vehicleService
+          .removeVehicle(result)
+          .subscribe((res) => {
+            const index = this.dataSource.data.findIndex(
+              (el) => el._id === res._id
+            );
+            if (index > -1) {
+              this.dataSource.data.splice(index, 1);
+              this.dataSource = new MatTableDataSource(this.dataSource.data);
+            }
+          });
+      }
     });
   }
+
   /**
    * Open edit Method for vehicles Edit router
    * @param obj

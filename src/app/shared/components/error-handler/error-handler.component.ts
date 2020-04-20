@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from "@angular/animations";
 import { Component, OnDestroy } from "@angular/core";
 import { Subscription, timer } from "rxjs";
-import { ErroHandlerMessage } from '../../models/erro-handler-message';
+import { ErroHandlerMessage, SuccessMessage } from '../../models/erro-handler-message';
 import { ErroHandlerService } from 'src/app/core/services/erro-handler.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class ErrorHandlerComponent implements OnDestroy {
   hasError: boolean = false; // hasError
   show: boolean = false;
   error: ErroHandlerMessage;
+  success: SuccessMessage;
   subscription: Subscription;
 
   /**
@@ -30,12 +31,15 @@ export class ErrorHandlerComponent implements OnDestroy {
    * @param erroService
    */
   constructor(private erroService: ErroHandlerService) {
-    this.subscription = this.erroService.getErrors().subscribe((data) => {
+    this.subscription = this.erroService.getMessages().subscribe((data) => {
       if (data) {
-        this.hasError = true;
-        this.error = data;
-      } else {
-        this.hasError = false;
+        if(!data.message){
+          this.hasError = true;
+          this.error = data;
+        }else{
+          this.hasError = false;
+          this.success = data;
+        }
       }
       this.show = true;
       this.setTimer();

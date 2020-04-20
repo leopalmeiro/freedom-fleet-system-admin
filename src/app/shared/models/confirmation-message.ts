@@ -1,4 +1,5 @@
 export interface ConfirmationMessage {
-  id: string;
-  title: string;
+  id: String;
+  title: String;
+  type: String;
 }
