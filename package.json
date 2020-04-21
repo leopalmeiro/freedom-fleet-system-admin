@@ -28,6 +28,8 @@
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link": "^1.2.14",
+    "apollo-link-error": "^1.1.13",
+    "apollo-link-http": "^1.5.17",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "hammerjs": "^2.0.8",

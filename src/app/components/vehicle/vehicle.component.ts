@@ -120,6 +120,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
    * @param obj
    */
   openEdit(obj): void {
-    this.router.navigate(["/vehicles/edit", obj.id]);
+    this.router.navigate(["/vehicles/edit", obj._id]);
   }
 }

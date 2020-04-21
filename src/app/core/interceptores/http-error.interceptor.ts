@@ -33,13 +33,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.progressBarService.active();
     return next.handle(request).pipe(
       retry(1),
-      //when success but when doesnt has a id http status = 200
-      //tap(data => {
-      //  alert(JSON.stringify(data));
-      //}),
       catchError((error: HttpErrorResponse) => {
         let errorMessage = "";
         if (error.error instanceof ErrorEvent) {
@@ -57,6 +52,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           };
         }
         this.erroHandlerService.addError(this.erroHandlerMessage);
+        this.progressBarService.desactive();
         return throwError(errorMessage);
       }),
 

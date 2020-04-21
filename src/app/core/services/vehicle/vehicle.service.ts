@@ -4,7 +4,7 @@ import { Vehicle } from "src/app/shared/models/vehicle";
 import { VEHICLES } from "src/app/mocks/mocks";
 import { delay, map } from "rxjs/operators";
 import { ProgressBarService } from "../progress-bar/progress-bar.service";
-import { Apollo,} from "apollo-angular";
+import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 import { QueryGraph, RemoveQuery } from "src/app/shared/types/Query";
 import { ErroHandlerService } from "../erro-handler.service";
@@ -22,16 +22,29 @@ const removeVehicle = gql`
   }
 `;
 const findAll = gql`
-{
-  vehicles {
-    _id
-    type
-    model
-    year
-    plate
-    qrdata
+  {
+    vehicles {
+      _id
+      type
+      model
+      year
+      plate
+      qrdata
+    }
   }
-}
+`;
+
+const getVehicleByID = gql`
+  query vehicle($vehicleId: String) {
+    vehicle(id: $vehicleId) {
+      _id
+      type
+      model
+      year
+      plate
+      qrdata
+    }
+  }
 `;
 
 @Injectable({
@@ -54,7 +67,7 @@ export class VehicleService {
     this.progressBarService.active();
     return this.apollo
       .watchQuery<QueryGraph>({
-        query:findAll
+        query: findAll,
       })
       .valueChanges.pipe(
         map((resut) => {
@@ -80,20 +93,14 @@ export class VehicleService {
       .pipe(
         map(
           (result) => {
+            console.log
+            (result);
             this.progressBarService.desactive();
             this.successMessage = {
-              message: `Vehicle type: ${result.data.removeVehicle.type} has been removed`,
+              message: `Vehicle: Type: ${result.data.removeVehicle.type} has been removed`,
             };
             this.handlerService.addsuccess(this.successMessage);
             return result.data.removeVehicle;
-          },
-          (error) => {
-            this.progressBarService.desactive();
-            this.erroMessages = {
-              codeError: null,
-              error: `Erro to remove vehicle: ${error}`,
-            };
-            this.handlerService.addError(this.erroMessages);
           }
         )
       );
@@ -114,12 +121,12 @@ export class VehicleService {
    * @param vehicle Object
    */
   updateVehicle(vehicle: Vehicle): void {
-    this.getDelay();
+    /* this.getDelay();
     const index = this.v.indexOf(this.getVehicleByID(vehicle._id), 0);
     if (index > -1) {
       this.v[index] = vehicle;
       this.subject.next(this.v);
-    }
+    } */
   }
 
   /**
@@ -127,9 +134,24 @@ export class VehicleService {
    * @param id Id of Vehicle
    * @returns Object of Vehicle
    */
-  getVehicleByID(id): Vehicle {
-    return null;
-    //return this.v.find((veih) => veih.id === +id);
+  getVehicleByID(id): Observable<Vehicle> {
+    this.progressBarService.active();
+    return this.apollo
+      .watchQuery<QueryGraph>({
+        query: getVehicleByID,
+        variables: { vehicleId: "id" },
+      })
+      .valueChanges.pipe(
+        map(
+          (resut) => {
+            console.log(resut);
+
+            if (!resut.loading) this.progressBarService.desactive();
+            return resut.data.vehicle;
+          },
+
+        )
+      );
   }
   /**
    * getdelay
@@ -139,5 +161,11 @@ export class VehicleService {
     setTimeout(() => {
       this.progressBarService.desactive();
     }, 2000);
+  }
+  /**
+   * AddErrors method for add error when httt response = 200 but has error
+   */
+  addErrors(message: String): void {
+
   }
 }
