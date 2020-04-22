@@ -37,6 +37,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       retry(1),
       catchError((error: HttpErrorResponse) => {
         let errorMessage = "";
+        console.log(JSON.stringify(error));
+
         if (error.error instanceof ErrorEvent) {
           // client-side error
           this.erroHandlerMessage = {
@@ -45,6 +47,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           };
         } else {
           // server-side error
+          console.log(error);
+          //when has error from graphQl with status different 200
+          const arrErr = Array(error.error);
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
           this.erroHandlerMessage = {
             codeError: error.status,

@@ -3,6 +3,7 @@ import { Component, OnDestroy } from "@angular/core";
 import { Subscription, timer } from "rxjs";
 import { ErroHandlerMessage, SuccessMessage } from '../../models/erro-handler-message';
 import { ErroHandlerService } from 'src/app/core/services/erro-handler.service';
+import { ResponseError } from '../../models/ResponseError';
 
 @Component({
   selector: "app-error-handler",
@@ -25,6 +26,7 @@ export class ErrorHandlerComponent implements OnDestroy {
   error: ErroHandlerMessage;
   success: SuccessMessage;
   subscription: Subscription;
+  errorMessages: ResponseError;
 
   /**
    * Constructor Method
@@ -33,13 +35,14 @@ export class ErrorHandlerComponent implements OnDestroy {
   constructor(private erroService: ErroHandlerService) {
     this.subscription = this.erroService.getMessages().subscribe((data) => {
       if (data) {
-        if(!data.message){
+        this.errorMessages = data;
+      /*   if(!data.hasError){
           this.hasError = true;
           this.error = data;
         }else{
           this.hasError = false;
           this.success = data;
-        }
+        } */
       }
       this.show = true;
       this.setTimer();

@@ -1,20 +1,25 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable } from "rxjs";
-import { ErroHandlerMessage, SuccessMessage } from "./../../shared/models/erro-handler-message";
+import { Observable, Subject } from "rxjs";
+import { HelperResponseError } from 'src/app/shared/models/HelperResponseError';
+import { ResponseError } from "src/app/shared/models/ResponseError";
 
 @Injectable({
   providedIn: "root",
 })
 export class ErroHandlerService {
   private subject = new Subject<any>();
+  private responseEerror: ResponseError = new HelperResponseError();
   constructor() {}
 
-  addError(error: ErroHandlerMessage) {
-    this.subject.next(error);
+  addError(error: ResponseError) {
+    this.responseEerror = error
+    this.responseEerror.hasError = true;
+    this.subject.next(this.responseEerror);
   }
-
-  addsuccess(message: SuccessMessage){
-    this.subject.next(message);
+  addsuccess(message: String) {
+    this.responseEerror.hasError= false;
+    this.responseEerror.message = message;
+    this.subject.next(this.responseEerror);
   }
 
   getMessages(): Observable<any> {

@@ -29,11 +29,11 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
     public breakpointService: BreakpointService,
     private vehicleService: VehicleService,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {
     this.vehicleForm = this.fb.group({
       id: new FormControl(""),
-      name: new FormControl("", [Validators.required]),
+      type: new FormControl("", [Validators.required]),
       model: new FormControl("", [Validators.required]),
       plate: new FormControl("", [Validators.required]),
       year: new FormControl("", [
@@ -47,8 +47,8 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
   get id() {
     return this.vehicleForm.get("id");
   }
-  get name() {
-    return this.vehicleForm.get("name");
+  get type() {
+    return this.vehicleForm.get("type");
   }
 
   get model() {
@@ -69,14 +69,21 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
     if (this.isEditMode) {
       this.vehicleService.updateVehicle(this.vehicleForm.value);
     } else {
-      this.vehicleService.addVehicle(this.vehicleForm.value);
+      //this.vehicleService.addVehicle();
+      const vei = this.addvehicle(this.vehicleForm.value);
     }
     this.router.navigate(["/vehicles"]);
   }
 
+  addvehicle(vehicle: Vehicle) {
+    this.subs.sink = this.vehicleService
+      .addVehicle(this.vehicleForm.value)
+      .subscribe((result) => {
+        console.log(`Result ${result}`);
+        return result;
+      });
+  }
   ngOnInit(): void {
-
-
     const id = this.route.snapshot.paramMap.get("id");
     if (id) {
       this.isEditMode = true;
@@ -100,7 +107,7 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
   setValues(vehicle: Vehicle): void {
     this.vehicleForm.patchValue({
       id: vehicle._id,
-      name: vehicle.type,
+      type: vehicle.type,
       model: vehicle.model,
       plate: vehicle.plate,
       year: vehicle.year,
