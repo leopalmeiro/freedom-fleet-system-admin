@@ -4,7 +4,10 @@ import gql from "graphql-tag";
 import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { VEHICLES } from "src/app/mocks/mocks";
-import { ErroHandlerMessage, SuccessMessage } from "src/app/shared/models/erro-handler-message";
+import {
+  ErroHandlerMessage,
+  SuccessMessage,
+} from "src/app/shared/models/erro-handler-message";
 import { Vehicle } from "src/app/shared/models/vehicle";
 import { AddQuery, QueryGraph, RemoveQuery } from "src/app/shared/types/Query";
 import { ErroHandlerService } from "../erro-handler.service";
@@ -18,8 +21,13 @@ const removeVehicle = gql`
   }
 `;
 const addVehicle = gql`
-  mutation addVehicle($type: String!,$model: String!,$year: Int!,$plate: String!) {
-    addVehicle(type: $type, model: $model, year: $year, plate: $plate){
+  mutation addVehicle(
+    $type: String!
+    $model: String!
+    $year: Int!
+    $plate: String!
+  ) {
+    addVehicle(type: $type, model: $model, year: $year, plate: $plate) {
       _id
       type
       model
@@ -55,8 +63,6 @@ const getVehicleByID = gql`
   }
 `;
 
-
-
 @Injectable({
   providedIn: "root",
 })
@@ -91,13 +97,13 @@ export class VehicleService {
    * Remove Vehicle Method
    * @param vehicleId
    */
-  removeVehicle(vehicleId: number): Observable<Vehicle> {
+  removeVehicle(vehicleId: String): Observable<Vehicle> {
     this.progressBarService.active();
     return this.apollo
       .mutate<RemoveQuery>({
         mutation: removeVehicle,
         variables: {
-          id: "vehicleId",
+          id: vehicleId,
         },
       })
       .pipe(
@@ -116,8 +122,6 @@ export class VehicleService {
    * @returns Observable of Vehicle
    */
   addVehicle(vehicle: Vehicle): Observable<Vehicle> {
-    console.log(vehicle);
-
     this.progressBarService.active();
     return this.apollo
       .mutate<AddQuery>({
@@ -125,18 +129,18 @@ export class VehicleService {
         variables: {
           type: vehicle.type,
           model: vehicle.model,
-          year: vehicle.year,
+          year: new Number(vehicle.year),
           plate: vehicle.plate,
         },
       })
       .pipe(
         map((result) => {
-          console.log(result.errors);
+          alert(result.data.addVehicle.type);
           const message = `Vehicle: Type: ${result.data.addVehicle.type} has been add`;
           this.progressBarService.desactive();
           this.handlerService.addsuccess(message);
           return result.data.addVehicle;
-        }),
+        })
       );
   }
 

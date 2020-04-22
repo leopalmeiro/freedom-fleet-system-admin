@@ -64,15 +64,14 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
     return this.vehicleForm.get("qrdata");
   }
 
-  onSubmit(): void {
+  submitForm(): void {
     const vehicle: Vehicle = this.vehicleForm.value;
     if (this.isEditMode) {
-      this.vehicleService.updateVehicle(this.vehicleForm.value);
+      this.vehicleService.updateVehicle(vehicle);
     } else {
-      //this.vehicleService.addVehicle();
-      const vei = this.addvehicle(this.vehicleForm.value);
+      this.addvehicle(vehicle);
+
     }
-    this.router.navigate(["/vehicles"]);
   }
 
   addvehicle(vehicle: Vehicle) {
@@ -80,7 +79,7 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
       .addVehicle(this.vehicleForm.value)
       .subscribe((result) => {
         console.log(`Result ${result}`);
-        return result;
+        this.router.navigate(["/vehicles"]);
       });
   }
   ngOnInit(): void {

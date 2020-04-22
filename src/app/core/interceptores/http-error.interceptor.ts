@@ -1,20 +1,12 @@
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpResponse,
-  HttpErrorResponse,
-} from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
-import { retry, catchError, delay, tap } from "rxjs/operators";
-import { ErroHandlerService } from "./../services/erro-handler.service";
-import { ErroHandlerMessage } from "./../../shared/models/erro-handler-message";
-import { ProgressBarService } from '../services/progress-bar/progress-bar.service';
+import { catchError, retry } from "rxjs/operators";
 import { HelperResponseError } from 'src/app/shared/models/HelperResponseError';
 import { ResponseError } from 'src/app/shared/models/ResponseError';
 import { environment } from 'src/environments/environment';
+import { ProgressBarService } from '../services/progress-bar/progress-bar.service';
+import { ErroHandlerService } from "./../services/erro-handler.service";
 
 @Injectable({
   providedIn: "root",
@@ -42,7 +34,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         //if for check if is graphql, if true graphQl has another interceptor for check all errors
         if(error.url !== environment.GraphQLUri){
-
         this.erroHandlerMessage.hasError = true;
         this.erroHandlerMessage.status = error.status? error.status : null ;
         this.erroHandlerMessage.statusText = error.message? error.message:  null;
