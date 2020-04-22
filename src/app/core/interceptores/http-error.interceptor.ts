@@ -12,12 +12,16 @@ import { retry, catchError, delay, tap } from "rxjs/operators";
 import { ErroHandlerService } from "./../services/erro-handler.service";
 import { ErroHandlerMessage } from "./../../shared/models/erro-handler-message";
 import { ProgressBarService } from '../services/progress-bar/progress-bar.service';
+import { HelperResponseError } from 'src/app/shared/models/HelperResponseError';
+import { ResponseError } from 'src/app/shared/models/ResponseError';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: "root",
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
-  erroHandlerMessage: ErroHandlerMessage;
+  erroHandlerMessage: ResponseError = new HelperResponseError();
+
   /**
    * Constructor Method
    * @param erroHandlerService
@@ -36,29 +40,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       retry(1),
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = "";
-        console.log(JSON.stringify(error));
+        //if for check if is graphql, if true graphQl has another interceptor for check all errors
+        if(error.url !== environment.GraphQLUri){
 
-        if (error.error instanceof ErrorEvent) {
-          // client-side error
-          this.erroHandlerMessage = {
-            codeError: null,
-            error: error.error.message,
-          };
-        } else {
-          // server-side error
-          console.log(error);
-          //when has error from graphQl with status different 200
-          const arrErr = Array(error.error);
-          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-          this.erroHandlerMessage = {
-            codeError: error.status,
-            error: error.message,
-          };
-        }
+        this.erroHandlerMessage.hasError = true;
+        this.erroHandlerMessage.status = error.status? error.status : null ;
+        this.erroHandlerMessage.statusText = error.message? error.message:  null;
+        this.erroHandlerMessage.message = error.error? error.error.message: null;
         this.erroHandlerService.addError(this.erroHandlerMessage);
         this.progressBarService.desactive();
-        return throwError(errorMessage);
+        }
+        return throwError(error);
       }),
 
     );

@@ -97,16 +97,14 @@ export class VehicleService {
       .mutate<RemoveQuery>({
         mutation: removeVehicle,
         variables: {
-          id: 'vehicleId',
+          id: "vehicleId",
         },
       })
       .pipe(
         map((result) => {
-          this.successMessage = {
-            message: `Vehicle: Type: ${result.data.removeVehicle.type} has been removed`,
-          };
+          const message = `Vehicle: Type: ${result.data.removeVehicle.type} has been removed`;
           this.progressBarService.desactive();
-          this.handlerService.addsuccess(this.successMessage);
+          this.handlerService.addsuccess(message);
           return result.data.removeVehicle;
         })
       );
@@ -134,16 +132,11 @@ export class VehicleService {
       .pipe(
         map((result) => {
           console.log(result.errors);
-
-          this.successMessage = {
-            message: `Vehicle: Type: ${result.data.addVehicle.type} has been add`,
-          };
+          const message = `Vehicle: Type: ${result.data.addVehicle.type} has been add`;
           this.progressBarService.desactive();
-          this.handlerService.addsuccess(this.successMessage);
+          this.handlerService.addsuccess(message);
           return result.data.addVehicle;
-        }, (errors) => {
-          alert(errors);
-        })
+        }),
       );
   }
 

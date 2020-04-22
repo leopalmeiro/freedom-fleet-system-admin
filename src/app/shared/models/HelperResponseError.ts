@@ -9,4 +9,8 @@ export class HelperResponseError implements ResponseError {
   errors?: Erro[];
   hasError?: Boolean;
   constructor(){}
+
+  toStrint(){
+    return 'dsads';
+  }
 }

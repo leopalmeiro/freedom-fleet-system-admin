@@ -8,6 +8,7 @@ import { ServicesModule } from "./services/services.module";
   declarations: [],
   imports: [CommonModule, ServicesModule, HttpClientModule],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
 
   ],
 })

@@ -48,7 +48,7 @@ export class GraphQLModule {
           if (networkError) {
             this.errors.status = networkError['status'];
             this.errors.statusText = networkError['statusText'];
-            this.errors.errors = networkError['error'];
+            this.errors.errors = networkError['error']['errors'];
             this.errors.url = networkError['url']
             this.errors.message = networkError['message'];
             this.progressBarService.desactive();
