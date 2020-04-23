@@ -90,8 +90,6 @@ export class BreakpointService {
       .observe(this.xsBreakpoint)
       .subscribe((state: BreakpointState) => {
         state.matches ? this.isXSScreen = true : this.isXSScreen = false;
-        console.log(state);
-
       });
     this.breakpointObserver
       .observe(this.smBreakpoint)

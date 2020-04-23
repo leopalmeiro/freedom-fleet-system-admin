@@ -14,3 +14,6 @@ export type AddQuery = {
   addVehicle: Vehicle;
 }
 
+export type UpdateQuery = {
+  updateVehicle: Vehicle;
+}

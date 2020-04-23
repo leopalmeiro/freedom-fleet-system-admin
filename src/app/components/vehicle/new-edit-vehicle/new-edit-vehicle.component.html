@@ -3,8 +3,6 @@
     <mat-card-title>Vehicles</mat-card-title>
   </mat-card>
 </div>
-<app-error-handler></app-error-handler>
-
 <div class="container-main">
   <form
     [formGroup]="vehicleForm"
@@ -24,7 +22,7 @@
               >Create a New Vehicle</mat-card-title
             >
             <mat-card-title *ngIf="isEditMode"
-              >Edit Vehicle id : {{ id.value }}
+              >Edit Vehicle id : {{ _id.value }}
             </mat-card-title>
             <app-btn-print *ngIf="isEditMode" type="icon"></app-btn-print>
           </mat-card-title-group>

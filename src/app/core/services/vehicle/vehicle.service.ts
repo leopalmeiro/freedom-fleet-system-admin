@@ -9,7 +9,7 @@ import {
   SuccessMessage,
 } from "src/app/shared/models/erro-handler-message";
 import { Vehicle } from "src/app/shared/models/vehicle";
-import { AddQuery, QueryGraph, RemoveQuery } from "src/app/shared/types/Query";
+import { AddQuery, QueryGraph, RemoveQuery, UpdateQuery } from "src/app/shared/types/Query";
 import { ErroHandlerService } from "../erro-handler.service";
 import { ProgressBarService } from "../progress-bar/progress-bar.service";
 const removeVehicle = gql`
@@ -28,6 +28,24 @@ const addVehicle = gql`
     $plate: String!
   ) {
     addVehicle(type: $type, model: $model, year: $year, plate: $plate) {
+      _id
+      type
+      model
+      year
+      plate
+      qrdata
+    }
+  }
+`;
+const updateVehicle = gql`
+  mutation updateVehicle(
+    $id: String!
+    $type: String!
+    $model: String!
+    $year: Int!
+    $plate: String!
+  ) {
+    updateVehicle(id: $id, type: $type, model: $model, year: $year, plate: $plate) {
       _id
       type
       model
@@ -148,13 +166,25 @@ export class VehicleService {
    * Update Vehicle Method
    * @param vehicle Object
    */
-  updateVehicle(vehicle: Vehicle): void {
-    /* this.getDelay();
-    const index = this.v.indexOf(this.getVehicleByID(vehicle._id), 0);
-    if (index > -1) {
-      this.v[index] = vehicle;
-      this.subject.next(this.v);
-    } */
+  updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
+    this.progressBarService.active();
+    return this.apollo.mutate<UpdateQuery>({
+      mutation: updateVehicle,
+      variables: {
+        id: vehicle._id,
+        type: vehicle.type,
+        model: vehicle.model,
+        year: new Number(vehicle.year),
+        plate: vehicle.plate,
+      },
+    }).pipe(
+      map((result) => {
+        const message = `Vehicle: Type: ${result.data.updateVehicle.type} has been Updated`;
+        this.progressBarService.desactive();
+        this.handlerService.addsuccess(message);
+        return result.data.updateVehicle;
+      })
+    );
   }
 
   /**
@@ -171,7 +201,6 @@ export class VehicleService {
       })
       .valueChanges.pipe(
         map((resut) => {
-          console.log(resut);
           if (!resut.loading) this.progressBarService.desactive();
           return resut.data.vehicle;
         })

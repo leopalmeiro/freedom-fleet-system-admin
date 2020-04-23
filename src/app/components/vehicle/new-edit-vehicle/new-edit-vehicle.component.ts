@@ -32,7 +32,7 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.vehicleForm = this.fb.group({
-      id: new FormControl(""),
+      _id: new FormControl(""),
       type: new FormControl("", [Validators.required]),
       model: new FormControl("", [Validators.required]),
       plate: new FormControl("", [Validators.required]),
@@ -44,8 +44,8 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
     });
   }
 
-  get id() {
-    return this.vehicleForm.get("id");
+  get _id() {
+    return this.vehicleForm.get("_id");
   }
   get type() {
     return this.vehicleForm.get("type");
@@ -67,19 +67,35 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
   submitForm(): void {
     const vehicle: Vehicle = this.vehicleForm.value;
     if (this.isEditMode) {
-      this.vehicleService.updateVehicle(vehicle);
+      this.updateVehicle(vehicle);
     } else {
       this.addvehicle(vehicle);
-
     }
   }
-
-  addvehicle(vehicle: Vehicle) {
+  /**
+   * Method for update vehicle
+   * @param vehicle
+   */
+  updateVehicle(vehicle: Vehicle): void {
+    this.subs.sink = this.vehicleService
+      .updateVehicle(vehicle)
+      .subscribe((result) => {
+        if (result) {
+          this.router.navigate(["/vehicles"]);
+        }
+      });
+  }
+  /**
+   * method for add a new vehicle
+   * @param vehicle
+   */
+  addvehicle(vehicle: Vehicle): void {
     this.subs.sink = this.vehicleService
       .addVehicle(this.vehicleForm.value)
       .subscribe((result) => {
-        console.log(`Result ${result}`);
-        this.router.navigate(["/vehicles"]);
+        if (result) {
+          this.router.navigate(["/vehicles"]);
+        }
       });
   }
   ngOnInit(): void {
@@ -105,7 +121,7 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
   }
   setValues(vehicle: Vehicle): void {
     this.vehicleForm.patchValue({
-      id: vehicle._id,
+      _id: vehicle._id,
       type: vehicle.type,
       model: vehicle.model,
       plate: vehicle.plate,

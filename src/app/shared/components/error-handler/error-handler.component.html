@@ -2,18 +2,17 @@
   <div *ngIf="errorMessages.hasError" class="container-main" id="error">
     <mat-card class="error-message">
       <mat-card-title>
-        <div *ngIf="errorMessages.status"><p>Status Erro: {{ errorMessages.status }}</p></div>
-        <div *ngIf="errorMessages.statusText"><p>Status Erro: {{ errorMessages.statusText }}</p></div>
-        <div *ngIf="errorMessages.message"><p>Message Erro: {{ errorMessages.message }}</p></div>
-        <div *ngFor="let erro of errorMessages.errors"><p>Errors: {{ erro.message }}</p></div>
-
+        <div *ngIf="errorMessages.status" class="message" ><span >Status Erro: {{ errorMessages.status }}</span></div>
+        <div *ngIf="errorMessages.statusText" class="message"><span >Status Erro: {{ errorMessages.statusText }}</span></div>
+        <div *ngIf="errorMessages.message"class="message" ><span >Message Erro: {{ errorMessages.message }}</span></div>
+        <div *ngFor="let erro of errorMessages.errors" class="message" ><span >Errors: {{ erro.message }}</span></div>
       </mat-card-title>
     </mat-card>
   </div>
   <div *ngIf="!errorMessages.hasError" class="container-main" id="error">
     <mat-card class="success-message">
       <mat-card-title>
-        <div *ngIf="errorMessages.message">{{ errorMessages.message }}</div>
+        <div *ngIf="errorMessages.message" class="message"><Span>{{ errorMessages.message }}</Span></div>
       </mat-card-title>
     </mat-card>
   </div>
