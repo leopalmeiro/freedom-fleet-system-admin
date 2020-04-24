@@ -7,7 +7,7 @@ import { Observable } from "apollo-link";
 import { BreakpointService } from "src/app/core/services/layout/breakpoint.service";
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
 import { ConfirmationModalComponent } from "src/app/shared/components/confirmation-modal/confirmation-modal.component";
-import { Vehicle } from "src/app/shared/models/vehicle";
+import { Vehicle } from "src/app/shared/models/Vehicle";
 import { SubSink } from "subsink";
 
 @Component({
@@ -44,7 +44,9 @@ export class VehicleComponent implements OnInit, OnDestroy {
     public breakpointService: BreakpointService,
     private router: Router,
     private vehicleService: VehicleService
-  ) {}
+  ) {
+
+  }
 
   /**
    * OnInitMethod
@@ -78,6 +80,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
    * onDestroy method
    */
   ngOnDestroy(): void {
+    alert('ondestroy');
     this.subs.unsubscribe();
   }
   /**

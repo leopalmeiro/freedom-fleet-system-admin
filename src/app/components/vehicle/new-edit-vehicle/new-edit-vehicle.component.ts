@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { BreakpointService } from "src/app/core/services/layout/breakpoint.service";
 import { VehicleService } from "src/app/core/services/vehicle/vehicle.service";
-import { Vehicle } from "src/app/shared/models/vehicle";
+import { Vehicle } from "src/app/shared/models/Vehicle";
 import { SubSink } from "subsink";
 
 @Component({

@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminMainComponent } from './shared/components/admin-main/admin-main.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewEditVehicleComponent } from './components/vehicle/new-edit-vehicle/new-edit-vehicle.component';
+import { NewEditDriverComponent } from './components/driver/new-edit-driver/new-edit-driver.component';
+import { DriverComponent } from './components/driver/driver.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,18 @@ const routes: Routes = [
       {
         path: 'vehicles/edit/:id',
         component: NewEditVehicleComponent,
+      },
+      {
+        path: 'drivers',
+        component: DriverComponent,
+      },
+      {
+        path: 'drivers/new',
+        component: NewEditDriverComponent,
+      },
+      {
+        path: 'drivers/edit/:id',
+        component: NewEditDriverComponent,
       },
     ],
   },

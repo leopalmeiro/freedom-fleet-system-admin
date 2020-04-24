@@ -44,6 +44,20 @@
       >
         <mat-icon>drive_eta</mat-icon><span>Vehicles</span>
       </button>
+      <!-- Driver Button -->
+      <button
+      mat-list-item
+      (click)="
+        breakpointService.isXSScreen ||
+        breakpointService.isSMScreen ||
+        breakpointService.isMDScreen
+          ? sidemenu.toggle()
+          : null
+      "
+      routerLink="/drivers"
+    >
+      <mat-icon>sports_motorsports</mat-icon><span>Drivers</span>
+    </button>
       <!--       <button mat-list-item (click)="isMobile?sidemenu.toggle(): null">
         <mat-icon>sports_motorsports</mat-icon><span>Drivers</span>
       </button>

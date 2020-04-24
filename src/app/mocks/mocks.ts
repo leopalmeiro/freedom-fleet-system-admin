@@ -1,4 +1,4 @@
-import { Vehicle } from '../shared/models/vehicle';
+import { Vehicle } from '../shared/models/Vehicle';
 
 
 export const VEHICLES : Vehicle[] = [

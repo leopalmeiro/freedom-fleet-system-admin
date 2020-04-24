@@ -1,17 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { VEHICLES } from "src/app/mocks/mocks";
-import {
-  ErroHandlerMessage,
-  SuccessMessage,
-} from "src/app/shared/models/erro-handler-message";
-import { Vehicle } from "src/app/shared/models/vehicle";
+import { Vehicle } from "src/app/shared/models/Vehicle";
 import { AddQuery, QueryGraph, RemoveQuery, UpdateQuery } from "src/app/shared/types/Query";
 import { ErroHandlerService } from "../erro-handler.service";
 import { ProgressBarService } from "../progress-bar/progress-bar.service";
+
+
+
 const removeVehicle = gql`
   mutation removeVehicle($id: String!) {
     removeVehicle(id: $id) {
@@ -85,11 +83,6 @@ const getVehicleByID = gql`
   providedIn: "root",
 })
 export class VehicleService {
-  private v = [...VEHICLES];
-  private subject = new Subject<Vehicle[]>();
-  private vehicles: Observable<Vehicle[]>;
-  private erroMessages: ErroHandlerMessage;
-  private successMessage: SuccessMessage;
 
   constructor(
     private progressBarService: ProgressBarService,
@@ -153,7 +146,6 @@ export class VehicleService {
       })
       .pipe(
         map((result) => {
-          alert(result.data.addVehicle.type);
           const message = `Vehicle: Type: ${result.data.addVehicle.type} has been add`;
           this.progressBarService.desactive();
           this.handlerService.addsuccess(message);
