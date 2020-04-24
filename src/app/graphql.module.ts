@@ -66,6 +66,12 @@ export class GraphQLModule {
       defaultOptions: {
         watchQuery: {
           errorPolicy: 'all',
+          fetchPolicy: 'no-cache',
+
+        },
+        query: {
+          fetchPolicy: 'no-cache',
+          errorPolicy: 'all',
         },
       },
     });
