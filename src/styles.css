@@ -112,4 +112,8 @@ th.mat-sort-header-sorted {
 .icon-hover:hover {
   font-size: 30px;
 }
-
+/* add break when the screen is mobile */
+.break {
+  flex-basis: 100%;
+  width: 0;
+}

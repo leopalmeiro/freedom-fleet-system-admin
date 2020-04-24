@@ -6,12 +6,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { DriverComponent } from './driver.component';
 import { NewEditDriverComponent } from './new-edit-driver/new-edit-driver.component';
+import {WebcamModule} from 'ngx-webcam';
 
 
 
 @NgModule({
   declarations: [DriverComponent, NewEditDriverComponent,],
   imports: [
+    WebcamModule,
     CommonModule,
     RouterModule,
     MaterialModule,

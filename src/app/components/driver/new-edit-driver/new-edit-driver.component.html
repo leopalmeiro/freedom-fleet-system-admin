@@ -1,1 +1,165 @@
-<p>new-edit-driver works!</p>
+<div class="container-main">
+  <mat-card>
+    <mat-card-title>Drivers</mat-card-title>
+  </mat-card>
+</div>
+<div class="container-main">
+  <form [formGroup]="driverForm" #dForm="ngForm">
+    <div class="container-box">
+      <div
+        [ngClass]="{
+          'item-mobile':
+            breakpointService.isXSScreen ||
+            breakpointService.isSMScreen ||
+            breakpointService.isMDScreen,
+          item: !(
+            breakpointService.isXSScreen ||
+            breakpointService.isSMScreen ||
+            breakpointService.isMDScreen
+          )
+        }"
+      >
+        <mat-card>
+          <mat-card-title-group>
+            <mat-card-title *ngIf="!isEditMode"
+              >Create a New Driver</mat-card-title
+            >
+            <mat-card-title *ngIf="isEditMode"
+              >Edit Driver id : {{ id.value }}
+            </mat-card-title>
+            <app-btn-print *ngIf="isEditMode" type="icon"></app-btn-print>
+          </mat-card-title-group>
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Driver Name</mat-label>
+              <input
+                matInput
+                id="name"
+                formControlName="name"
+                placeholder="Type Your Driver name"
+              />
+              <mat-error *ngIf="name.invalid">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Driver Birth</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                id="birthdate"
+                formControlName="birthdate"
+                placeholder="Type Your Driver Birth"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="birthdate.invalid">
+                Driver Birth is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>email</mat-label>
+              <input
+                matInput
+                id="email"
+                formControlName="email"
+                placeholder="Type Driver Email"
+              />
+              <mat-error *ngIf="email.hasError('required')">
+                Driver Email is <strong>required</strong>
+              </mat-error>
+              <mat-error
+                *ngIf="email.hasError('email') && !email.hasError('required')"
+              >
+                Driver Email is <strong>Invalid</strong>
+              </mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions align="start">
+            <button
+              [disabled]="!dForm.valid"
+              mat-raised-button
+              color="primary"
+              (click)="submitForm()"
+            >
+              <mat-icon>save</mat-icon
+              ><span class="span-btn-with-icon">Save</span>
+            </button>
+            <button mat-raised-button color="primary" routerLink="/drivers">
+              <mat-icon>keyboard_arrow_left</mat-icon
+              ><span class="span-btn-with-icon">Back</span>
+            </button>
+            <button mat-raised-button color="primary" (click)="toggleWebcam();">
+              <mat-icon>photo_camera</mat-icon
+              ><span class="span-btn-with-icon" *ngIf="!showWebcam">Add a Photo</span>
+              <span class="span-btn-with-icon" *ngIf="showWebcam">Close the Camera</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <!-- flex break when if mobile -->
+      <div
+        *ngIf="
+          breakpointService.isXSScreen ||
+          breakpointService.isSMScreen ||
+          breakpointService.isMDScreen
+        "
+        class="break"
+      ></div>
+      <!--flex break when if mobile -->
+
+      <div
+      *ngIf="showWebcam"
+        [ngClass]="{
+          'item-mobile':
+            breakpointService.isXSScreen ||
+            breakpointService.isSMScreen ||
+            breakpointService.isMDScreen,
+          item: !(
+            breakpointService.isXSScreen ||
+            breakpointService.isSMScreen ||
+            breakpointService.isMDScreen
+          )
+        }"
+      >
+        <mat-card *ngIf="showWebcam" >
+          <mat-card-title-group>
+            <mat-card-title>Driver Picture</mat-card-title>
+          </mat-card-title-group>
+
+          <mat-card-content>
+            <img class="photo" *ngIf="webcamImage" [src]="webcamImage.imageAsDataUrl"/>
+            <webcam *ngIf="!webcamImage"
+              [height]="400"
+              [trigger]="triggerObservable"
+              (imageCapture)="handleImage($event)"
+              [imageQuality]="1"
+              (initError)="handleInitError($event)"
+            ></webcam>
+          </mat-card-content>
+          <mat-card-actions>
+            <button               [disabled]="webcamImage"
+    mat-raised-button color="primary" (click)="triggerSnapshot()">
+              <mat-icon>add_a_photo</mat-icon
+              ><span class="span-btn-with-icon">Take a Picture</span>
+            </button>
+<!--             <button mat-raised-button color="primary" (click)="closeResult();">
+              <mat-icon>save</mat-icon
+              ><span class="span-btn-with-icon">Save</span>
+            </button> -->
+            <button *ngIf="webcamImage" mat-raised-button color="primary" (click)="deletePicture()">
+              <mat-icon>clear</mat-icon
+              ><span class="span-btn-with-icon">Delete</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </form>
+</div>

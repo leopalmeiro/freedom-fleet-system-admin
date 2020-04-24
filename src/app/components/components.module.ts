@@ -15,7 +15,7 @@ import { VehicleModule } from './vehicle/vehicle.module';
     VehicleModule,
     DashboardModule,
     SharedComponentsModule,
-    DriverModule
+    DriverModule,
   ]
 })
 export class ComponentsModule { }

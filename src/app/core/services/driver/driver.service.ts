@@ -10,8 +10,8 @@ import {
   QueryGraph,
   RemoveQuery,
 } from "src/app/shared/types/Query";
-import { Observable } from "apollo-link";
 import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 /* id: String,
   name: String,
@@ -139,7 +139,4 @@ export class DriverService {
         })
       );
   }
-
-
-
 }
