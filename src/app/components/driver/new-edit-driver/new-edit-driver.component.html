@@ -94,7 +94,8 @@
               <mat-icon>keyboard_arrow_left</mat-icon
               ><span class="span-btn-with-icon">Back</span>
             </button>
-            <button mat-raised-button color="primary" (click)="toggleWebcam();">
+            <button  *ngIf="breakpointService.isXLScreen || breakpointService.isLGScreen"
+            mat-raised-button color="primary" (click)="toggleWebcam();">
               <mat-icon>photo_camera</mat-icon
               ><span class="span-btn-with-icon" *ngIf="!showWebcam">Add a Photo</span>
               <span class="span-btn-with-icon" *ngIf="showWebcam">Close the Camera</span>
