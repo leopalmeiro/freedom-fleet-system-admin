@@ -12,20 +12,13 @@ import {
 } from "src/app/shared/types/Query";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
-
-/* id: String,
-  name: String,
-  birthdate: Date,
-  image: String,
-  pass: String,
-  email: String,
-  dt_create: {type: Date, default: Date.now()},
-  dt_update: Date, */
+import { MatDialog } from "@angular/material/dialog";
+import { variable } from "@angular/compiler/src/output/output_ast";
 
 const removeDriver = gql`
   mutation removeDriver($id: String!) {
     removeDriver(id: $id) {
-      id
+      _id
       name
     }
   }
@@ -43,7 +36,7 @@ const addDriver = gql`
       image: $image
       email: $email
     ) {
-      id
+      _id
       name
       birthdate
       image
@@ -55,49 +48,46 @@ const addDriver = gql`
 const updateDriver = gql`
   mutation updateDriver(
     $id: String!
-    $type: String!
-    $model: String!
-    $year: Int!
-    $plate: String!
+    $name: String!
+    $birthdate: Date!
+    $image: String!
+    $email: String!
   ) {
     updateDriver(
-      id: $id
-      type: $type
-      model: $model
-      year: $year
-      plate: $plate
+      id: $id,
+      name: $name,
+      birthdate: $birthdate,
+      image: $image,
+      email: $email
     ) {
       _id
-      type
-      model
-      year
-      plate
-      qrdata
+      name
+      birthdate
+      image
+      email
     }
   }
 `;
 const findAll = gql`
   {
-    Drivers {
+    drivers {
       _id
-      type
-      model
-      year
-      plate
-      qrdata
+      name
+      birthdate
+      image
+      email
     }
   }
 `;
 
 const getDriverByID = gql`
-  query Driver($DriverId: String) {
-    Driver(id: $DriverId) {
+  query driver($driverId: String) {
+    driver(id: $driverId) {
       _id
-      type
-      model
-      year
-      plate
-      qrdata
+      name
+      birthdate
+      image
+      email
     }
   }
 `;
@@ -109,7 +99,8 @@ export class DriverService {
   constructor(
     private progressBarService: ProgressBarService,
     private apollo: Apollo,
-    private handlerService: ErroHandlerService
+    private handlerService: ErroHandlerService,
+    public dialog: MatDialog
   ) {}
 
   /**
@@ -139,4 +130,94 @@ export class DriverService {
         })
       );
   }
+  /**
+   * Get all Drivers
+   */
+  getDrivers(): Observable<Driver[]> {
+    this.progressBarService.active();
+    return this.apollo
+      .watchQuery<QueryGraph>({
+        query: findAll,
+      })
+      .valueChanges.pipe(
+        map((result) => {
+          if (!result.loading) {
+            this.progressBarService.desactive();
+            return result.data.drivers;
+          }
+        })
+      );
+  }
+
+  /**
+   * getDriverById method
+   * @param id
+   */
+  getDriverByID(id: String): Observable<Driver> {
+    this.progressBarService.active();
+    return this.apollo.watchQuery<QueryGraph>({
+      query: getDriverByID,
+      variables: {driverId : id}
+    }).valueChanges.pipe(
+      map((result) => {
+        if(!result.loading){
+          this.progressBarService.desactive();
+          return result.data.driver;
+        }
+
+      })
+    )
+  }
+
+  /**
+   * Remove Driver Method
+   * @param id driver
+   */
+  removeDriver(id: String): Observable<Driver> {
+    this.progressBarService.active();
+    return this.apollo
+      .mutate<RemoveQuery>({
+        mutation: removeDriver,
+        variables: { id: id },
+      })
+      .pipe(
+        map((result) => {
+          if(result){
+            const message = `Driver Name: ${result.data.removeDriver.name} has been removed`;
+            this.progressBarService.desactive();
+            this.handlerService.addsuccess(message);
+            return result.data.removeDriver;
+          }
+
+        })
+      );
+  }
+
+  /**
+   * UpdateDriver Method
+   * @param driver
+   */
+  updateDriver(driver: Driver): Observable<Driver>{
+    this.progressBarService.active();
+    return this.apollo.mutate<UpdateQuery>({
+      mutation: updateDriver,
+      variables: {
+        id: driver._id,
+        name: driver.name,
+        birthdate: driver.birthdate,
+        image: driver.image,
+        email: driver.email
+      }
+    }).pipe(
+      map((result)=>{
+        if(result){
+          const message = `Driver Name: ${result.data.updateDriver.name} has been Updated`;
+          this.progressBarService.desactive();
+          this.handlerService.addsuccess(message);
+          return result.data.updateDriver;
+        }
+      })
+    )
+  };
+
 }

@@ -8,17 +8,97 @@
     <div class="item">
       <mat-card>
         <mat-card-title-group>
-        <mat-card-title>List of Drivers</mat-card-title>
-        <app-btn-print type="icon"></app-btn-print>
+          <mat-card-title>List of Drivers</mat-card-title>
+          <app-btn-print type="icon"></app-btn-print>
         </mat-card-title-group>
-      <mat-card-content>
-        <button class="btn-success" mat-raised-button color="primary" routerLink="/drivers/new">
-          <mat-icon>add_circle_outline</mat-icon><span class="span-btn-with-icon">New</span>
-        </button>
+        <mat-card-content>
+          <div class="box-btn">
 
-      </mat-card-content>
-    </mat-card>
+          <button
+            class="btn-success"
+            mat-raised-button
+            color="primary"
+            routerLink="/drivers/new"
+          >
 
+            <mat-icon>add_circle_outline</mat-icon
+            ><span class="span-btn-with-icon">New</span>
+          </button>
+        </div>
+          <mat-form-field appearance="outline" class="print">
+            <mat-label>Filter</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Ex. Ferrari"
+            />
+          </mat-form-field>
+
+          <div class="table-with-scroll">
+            <mat-table
+              class="mat-elevation-z8"
+              [dataSource]="dataSource"
+              matSort
+            >
+              <!-- Image Column-->
+            <ng-container matColumnDef="image">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Image </mat-header-cell>
+              <mat-cell *matCellDef="let element"> <img *ngIf="element.image" mat-card-avatar src="{{element.image}}" alt="element.name">
+              </mat-cell>
+            </ng-container>
+
+              <!-- Name Column-->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+
+              <!-- birthdate Column -->
+            <ng-container matColumnDef="birthdate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Birth  </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.birthdate | date}} </mat-cell>
+            </ng-container>
+              <!-- email Column-->
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Email
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.email }}
+                </mat-cell>
+              </ng-container>
+
+              <!-- Actions Column -->
+
+            <ng-container matColumnDef="actions" >
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="print" > Actions </mat-header-cell>
+              <mat-cell class="print" *matCellDef="let element">
+                <div>
+                  <button *ngIf="!breakpointService.isXSScreen" mat-icon-button class="icon-edit"
+                    [routerLink]="['/drivers/edit', element._id ]">
+                    <mat-icon class="icon-hover">create</mat-icon>
+                  </button>
+                  <button mat-icon-button class="icon-delete" (click)="openDialog(element)">
+                    <mat-icon class="icon-hover">remove_circle</mat-icon>
+                  </button>
+                </div>
+              </mat-cell>
+            </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+              ></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: displayedColumns"
+                (dblclick)="breakpointService.isXSScreen ? openEdit(row) : null"
+              >
+              </mat-row>
+            </mat-table>
+          </div>
+          <!-- <mat-paginator [length]="220" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">">
+        </mat-paginator> -->
+        </mat-card-content>
+      </mat-card>
     </div>
-</div>
+  </div>
 </div>

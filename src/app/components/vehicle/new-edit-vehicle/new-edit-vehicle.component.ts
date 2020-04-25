@@ -119,6 +119,11 @@ export class NewEditVehicleComponent implements OnInit, OnDestroy {
         this.setValues(data);
       });
   }
+
+  /**
+   * SetValues Method
+   * @param vehicle
+   */
   setValues(vehicle: Vehicle): void {
     this.vehicleForm.patchValue({
       _id: vehicle._id,

@@ -98,8 +98,10 @@ export class VehicleService {
       })
       .valueChanges.pipe(
         map((resut) => {
-          if (!resut.loading) this.progressBarService.desactive();
-          return resut.data.vehicles;
+          if (!resut.loading){
+            this.progressBarService.desactive();
+            return resut.data.vehicles;
+          }
         })
       );
   }
@@ -146,6 +148,7 @@ export class VehicleService {
       })
       .pipe(
         map((result) => {
+
           const message = `Vehicle: Type: ${result.data.addVehicle.type} has been add`;
           this.progressBarService.desactive();
           this.handlerService.addsuccess(message);
@@ -193,8 +196,10 @@ export class VehicleService {
       })
       .valueChanges.pipe(
         map((resut) => {
-          if (!resut.loading) this.progressBarService.desactive();
-          return resut.data.vehicle;
+          if (!resut.loading){
+            this.progressBarService.desactive();
+            return resut.data.vehicle;
+          }
         })
       );
   }

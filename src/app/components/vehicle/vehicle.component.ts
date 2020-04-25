@@ -31,7 +31,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
   vehicles: Vehicle[];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isMobile: boolean = false;
-  posts: Observable<any[]>;
+
   /**
    * Constructor Method
    * @param dialog
@@ -80,7 +80,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
    * onDestroy method
    */
   ngOnDestroy(): void {
-    alert('ondestroy');
     this.subs.unsubscribe();
   }
   /**

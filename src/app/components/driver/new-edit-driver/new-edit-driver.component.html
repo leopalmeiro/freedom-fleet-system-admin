@@ -4,7 +4,7 @@
   </mat-card>
 </div>
 <div class="container-main">
-  <form [formGroup]="driverForm" #dForm="ngForm">
+  <form [formGroup]="driverForm" #Form="ngForm">
     <div class="container-box">
       <div
         [ngClass]="{
@@ -25,7 +25,7 @@
               >Create a New Driver</mat-card-title
             >
             <mat-card-title *ngIf="isEditMode"
-              >Edit Driver id : {{ id.value }}
+              >Edit Driver id : {{ _id.value }}
             </mat-card-title>
             <app-btn-print *ngIf="isEditMode" type="icon"></app-btn-print>
           </mat-card-title-group>
@@ -51,14 +51,18 @@
                 id="birthdate"
                 formControlName="birthdate"
                 placeholder="Type Your Driver Birth"
+                disabled
               />
               <mat-datepicker-toggle
                 matSuffix
                 [for]="picker"
               ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="birthdate.invalid">
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+              <mat-error *ngIf="birthdate.hasError('required')">
                 Driver Birth is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="birthdate.hasError('pattern') && !birthdate.hasError('required')">
+                Birth is Invalid
               </mat-error>
             </mat-form-field>
 
@@ -82,7 +86,7 @@
           </mat-card-content>
           <mat-card-actions align="start">
             <button
-              [disabled]="!dForm.valid"
+              [disabled]="!Form.valid"
               mat-raised-button
               color="primary"
               (click)="submitForm()"
@@ -94,17 +98,28 @@
               <mat-icon>keyboard_arrow_left</mat-icon
               ><span class="span-btn-with-icon">Back</span>
             </button>
-            <button  *ngIf="breakpointService.isXLScreen || breakpointService.isLGScreen"
-            mat-raised-button color="primary" (click)="toggleWebcam();">
+            <button
+              type="button"
+              *ngIf="
+                (breakpointService.isXLScreen || breakpointService.isLGScreen) && !isEditMode
+              "
+              mat-raised-button
+              color="primary"
+              (click)="toggleWebcam()"
+            >
               <mat-icon>photo_camera</mat-icon
-              ><span class="span-btn-with-icon" *ngIf="!showWebcam">Add a Photo</span>
-              <span class="span-btn-with-icon" *ngIf="showWebcam">Close the Camera</span>
+              ><span class="span-btn-with-icon" *ngIf="!showWebcam"
+                >Add a Photo</span
+              >
+              <span class="span-btn-with-icon" *ngIf="showWebcam"
+                >Close the Camera</span
+              >
             </button>
           </mat-card-actions>
         </mat-card>
       </div>
 
-      <!-- flex break when if mobile -->
+      <!-- flex break when is mobile -->
       <div
         *ngIf="
           breakpointService.isXSScreen ||
@@ -113,10 +128,13 @@
         "
         class="break"
       ></div>
-      <!--flex break when if mobile -->
+      <!--flex break when is mobile -->
 
       <div
-      *ngIf="showWebcam"
+        *ngIf="
+        showResult &&
+          (breakpointService.isXLScreen || breakpointService.isLGScreen)
+        "
         [ngClass]="{
           'item-mobile':
             breakpointService.isXSScreen ||
@@ -129,14 +147,19 @@
           )
         }"
       >
-        <mat-card *ngIf="showWebcam" >
+        <mat-card *ngIf="showResult">
           <mat-card-title-group>
             <mat-card-title>Driver Picture</mat-card-title>
           </mat-card-title-group>
 
           <mat-card-content>
-            <img class="photo" *ngIf="webcamImage" [src]="webcamImage.imageAsDataUrl"/>
-            <webcam *ngIf="!webcamImage"
+            <img
+              class="photo"
+              *ngIf="image"
+              src="{{image.value}}"
+            />
+            <webcam
+              *ngIf="image.value === ''"
               [height]="400"
               [trigger]="triggerObservable"
               (imageCapture)="handleImage($event)"
@@ -145,16 +168,21 @@
             ></webcam>
           </mat-card-content>
           <mat-card-actions>
-            <button               [disabled]="webcamImage"
-    mat-raised-button color="primary" (click)="triggerSnapshot()">
+            <button
+              [disabled]="image.value !== ''"
+              mat-raised-button
+              color="primary"
+              (click)="triggerSnapshot()"
+            >
               <mat-icon>add_a_photo</mat-icon
               ><span class="span-btn-with-icon">Take a Picture</span>
             </button>
-<!--             <button mat-raised-button color="primary" (click)="closeResult();">
-              <mat-icon>save</mat-icon
-              ><span class="span-btn-with-icon">Save</span>
-            </button> -->
-            <button *ngIf="webcamImage" mat-raised-button color="primary" (click)="deletePicture()">
+            <button
+              *ngIf="image.value !==''"
+              mat-raised-button
+              color="primary"
+              (click)="deletePicture()"
+            >
               <mat-icon>clear</mat-icon
               ><span class="span-btn-with-icon">Delete</span>
             </button>
