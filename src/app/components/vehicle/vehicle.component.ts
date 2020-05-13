@@ -97,7 +97,9 @@ export class VehicleComponent implements OnInit, OnDestroy {
    */
   openDialog(item): void {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      data: { title: "Remove Vehicle", id: item._id, type: item.type },
+/*       data: { title: "Remove Vehicle", id: item._id, type: item.type },
+ */      data: { title: "Remove Vehicle", id: item._id, objName: 'Vehicle' , objValue: item.type },
+
     });
 
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
