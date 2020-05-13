@@ -1,6 +1,6 @@
 @media print {
   /*when has print dont show in the print screen*/
-  :host ::ng-deep .print{
+  :host ::ng-deep .print {
     display: none;
   }
   /*remove top menu
@@ -11,8 +11,8 @@
   app-footer {
     display: none;
   }
-  :host ::ng-deep a{
-    color: black!important;
+  :host ::ng-deep a {
+    color: black !important;
   }
   /*remove side menu*/
   :host ::ng-deep mat-sidenav {
@@ -23,44 +23,51 @@
     margin: 0 !important;
     min-width: 0 !important;
     padding: 0 !important;
+    overflow: hidden !important;
+    page-break-inside: always !important;
   }
   /*remove scroll in the table*/
   :host ::ng-deep .table-with-scroll {
-    min-height: 100%!important;
-    overflow: hidden!important;
-    max-height: 100%;
+    min-height: 100% !important;
+    overflow: hidden !important;
+    max-height: 100% !important;
+    page-break-after: always !important;
   }
-  :host ::ng-deep mat-table{
-    min-height: 200px;
+  :host ::ng-deep mat-table {
+    min-height: 100% !important;
+    max-height: 100% !important;
+    page-break-after: always !important;
+
   }
   /*remove all buttons*/
-  :host ::ng-deep button{
+  :host ::ng-deep button {
     display: none;
   }
   /*show header button in the table*/
-  :host ::ng-deep mat-header-cell > * button{
-    display: block!important;
+  :host ::ng-deep mat-header-cell > * button {
+    display: block !important;
   }
 
   /* config for qrcode*/
-  :host ::ng-deep canvas{
+  :host ::ng-deep canvas {
     height: 250px !important ;
     width: 250px !important;
   }
   /* setting layout as a column when print*/
-  :host ::ng-deep .container-box{
-  flex-flow: column;
-  justify-content: space-around;
-  flex-basis: 100%;
-
+  :host ::ng-deep .container-box {
+    flex-flow: column;
+    justify-content: space-around;
+    flex-basis: 100%;
   }
-  :host ::ng-deep .item{
-
-    margin-left: 0!important;
-    margin-right: 0!important;
+  :host ::ng-deep .item {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
   * {
-    background-color: transparent!;
+    background-color: transparent !important;
   }
-
+  :host ::ng-deep body {
+    /*Remove scroll*/
+    overflow: hidden !important;
+  }
 }
